@@ -1,0 +1,75 @@
+//____________________________ home
+
+.home {
+    display: block;
+    margin: auto;
+    max-width: 600px;
+    background-color: $PrimaryColor;
+    border-radius: 50px;
+    color: aliceblue;
+    
+    .configchooser{
+      padding-bottom: 40px;
+      margin: auto;
+  
+      .devices {
+        padding-bottom: 20px;
+        margin: auto;
+        h1 {
+          margin: 20px;
+          margin-bottom: 0px;
+          padding: 20px;
+        }
+        
+        p {
+          padding: 40px;
+          font-size: 22px;
+        }
+  
+        a {
+          padding-top: 30px;
+          text-decoration: none;
+          color: white;
+          padding: 20px;
+          border-color:azure;
+          border-style: solid;
+          border-radius: 30px;
+          background-color: #0489D9;
+          &:hover {
+            transition: 0.3s;
+            font-size: 110%;
+            opacity: 1;
+            background-color: $PrimaryColor;
+            font-weight: bold;
+          }
+        }
+  
+        svg {
+          margin: auto;
+          height: 15px;
+          width: 15px;
+          fill: white;
+        }
+      }
+  
+      .contact {
+        margin: auto;
+        max-width: 400px;
+        padding-top: 50px;
+        
+        p {
+          font-size: 13px;
+        }
+  
+        a{
+          text-decoration: none;
+          color: white;
+          &:hover {
+            text-decoration: underline;
+            font-size: 110%;
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+  }
