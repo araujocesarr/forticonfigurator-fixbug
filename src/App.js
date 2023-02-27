@@ -1,10 +1,16 @@
 import './style/styles.css';
+import { Routes, Route } from 'react-router-dom';
+import Home from "./pages/Home"
+import Fortigate from './pages/Fortigate';
+import NoPage from "./pages/NoPage"
 
 function App() {
   return (
-    <div className="App">
-      <h1>FortiConfigurator</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+        <Route path="fortigate" element={<Fortigate />} />
+        <Route path='*' element={<NoPage />} />
+    </Routes>
   );
 }
 
