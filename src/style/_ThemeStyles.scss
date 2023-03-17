@@ -1,4 +1,14 @@
 #darkStyle {
+  a {
+    color: $PrimLightColor;
+  } 
+  h1{
+    color: $PrimLightColor;
+  }
+  h3{
+    color: $PrimLightColor;
+  }
+
   .appWrapper{
     .home {
       background-color: $PrimDarkColor;
@@ -6,7 +16,6 @@
       color: $PrimLightColor;
 
       .devices {
-    
         a {
           border-color: $PrimLightColor;
           background-color: $PrimDarkColor;
@@ -20,15 +29,54 @@
         }
       }
     }
+
+    //Fortigate Config Site
+    .fortigate {  
+      .configuration {
+        border: 2px solid $SecDarkColor;
+        background-color: $PrimDarkColor;
+        color: $PrimLightColor;
+      }
+        
+      .textfile {
+        border: 2px solid $PrimDarkColor;
+        color: $PrimLightColor;
+        background-color: rgb(179, 177, 177);
+        
+        button{
+          background-color: $PrimDarkColor;
+        }
+    
+        svg {
+          fill: $PrimLightColor;
+        }
+        
+        .rawconfig {
+          textarea{
+              border: 2px solid $PrimDarkColor;
+              background-color: $PrimDarkColor;
+              color: $PrimLightColor;
+          }
+        }
+      }
+    }
+
   }
 }
 
 // __________________________ SDAG Style
 #sdagStyle {
+  a {
+    color: $PrimLightColor;
+  }
+  h1{
+    color: $PrimLightColor;
+  }
+  h3{
+    color: $PrimLightColor;
+  }
   .appWrapper{
-    a {
-      color: $PrimLightColor;
-    } 
+
     .home {
       background-color: $PrimSdagColor;
       border-color:$PrimLightColor;
@@ -49,8 +97,8 @@
       }
     }
 
-    
-    .fortigate {    
+    //Fortigate Config Site
+    .fortigate {  
       .configuration {
         border: 2px solid $PrimLightColor;
         background-color: $PrimSdagColor;
@@ -64,12 +112,7 @@
       .textfile {
         border: 2px solid $PrimSdagColor;
         color: $PrimLightColor;
-        background-color: rgb(179, 177, 177);
-
-        h3{
-          color: $PrimLightColor;
-        }
-    
+        background-color: rgb(179, 177, 177);    
         button{
           background-color: $PrimLightColor;
         }
@@ -82,11 +125,7 @@
           textarea{
               border: 2px solid $PrimLightColor;
               background-color: $PrimLightColor;
-          }
-    
-          p{
-            color: $PrimDarkColor;
-            background-color: $PrimLightColor;
+              color: $PrimDarkColor;
           }
         }
       }

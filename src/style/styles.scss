@@ -1,7 +1,7 @@
 // Variables
 $PrimSdagColor: #0054A0;
 $SecSdagColor: #0489D9;
-$PrimDarkColor: #1B1B1B;
+$PrimDarkColor: #313536;
 $SecDarkColor:black ;
 $PrimLightColor:#F8F8F8;
 
@@ -115,19 +115,21 @@ body {
   display: flex;
   max-width: 1600px;
   margin-top: 10px;
+  h1{
+    padding: 30px;
+  }
 
   .configuration {
     flex: 1;
     border: 2px solid white;
     background-color: $PrimSdagColor;
     border-radius: 50px 0px 0px 50px;
-
     padding: 20px;
     color: white;
 
     a {
       text-decoration: none;
-
+      color: azure;
       &:hover {
         text-decoration: underline;
         font-size: 110%;

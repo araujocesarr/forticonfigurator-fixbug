@@ -19,7 +19,7 @@ export default function Configurator () {
           Hostname:
           <input type="text" name="hostname" />
       </label>
-      <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" />
       </form>
 
       <Link to="/">Back home</Link>

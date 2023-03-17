@@ -5,8 +5,8 @@ export default function NoPage () {
 
     return(
         <div className="nopage">
-            <h1>Page doesn't exist</h1>
-            <h3>Return to <Link to="/">Home</Link></h3>
+            <h1>Die gewünschte Seite existiert nicht!</h1>
+            <h3><Link to="/"> zurück</Link></h3>
         </div>
     );
 }
