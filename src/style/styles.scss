@@ -1,15 +1,17 @@
-$PrimaryColor: #0054A0;
+// Variables
+$PrimSdagColor: #0054A0;
+$SecSdagColor: #0489D9;
+$PrimDarkColor: #1B1B1B;
+$SecDarkColor:black ;
+$PrimLightColor:#F8F8F8;
+
+// __________________ Imports
+@import "_ThemeStyles.scss";
 
 * {
   text-align: center;
   margin: 0px;
   padding: 0px;
-
-}
-
-.App {
-  text-align: center;
-
 }
 
 body {
@@ -22,34 +24,179 @@ body {
   background-image: url("../../public/sdag_standort.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-
 }
 
-@import "_Home.scss";
+//____________________________ Home
+.home {
+  margin: auto;
+  max-width: 600px;
+  background-color: $PrimSdagColor;
+  border-color:$PrimLightColor;
+  border-style: solid;
+  border-radius: 50px;
+  color: aliceblue;
+  padding: 0px 0px 50px;
+  
+  .devices {
+    padding-bottom: 20px;
+    margin: auto;
+    
+    h1 {
+      margin: 10px;
+      margin-bottom: 0px;
+      padding: 20px;
+    }
+    
+    p {
+      padding: 40px;
+      padding-bottom: 70px;
+      font-size: 22px;
+    }
+
+    a {
+      padding-top: 30px;
+      text-decoration: none;
+      color: white;
+      padding: 20px;
+      border-color:azure;
+      border-style: solid;
+      border-radius: 30px;
+      background-color: #0489D9;
+      &:hover {
+        transition: 0.3s;
+        font-size: 110%;
+        opacity: 1;
+        background-color: $PrimSdagColor;
+        font-weight: bold;
+      }
+    }
+
+    svg {
+      margin: auto;
+      height: 15px;
+      width: 15px;
+      fill: white;
+    }
+  }
+
+  .contact {
+    margin: auto;
+    max-width: 400px;
+    padding-top: 50px;
+    
+    p {
+      font-size: 13px;
+    }
+
+    a{
+      text-decoration: none;
+      color: white;
+      &:hover {
+        text-decoration: underline;
+        font-size: 110%;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .themeChanger {
+    padding-top: 40px;
+    button{
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}
 
 //____________________________ Fortigate
 .fortigate {
-  display: block;
   margin: auto;
-  max-width: 800px;
-  background-color: $PrimaryColor;
-  border-radius: 50px;
-  padding: 20px;
-  color: white;
-  
-  a {
-    text-decoration: none;
-    color: azure;
-    &:hover {
-      text-decoration: underline;
-      font-size: 110%;
-      opacity: 0.7;
+  display: flex;
+  max-width: 1600px;
+  margin-top: 10px;
+
+  .configuration {
+    flex: 1;
+    border: 2px solid white;
+    background-color: $PrimSdagColor;
+    border-radius: 50px 0px 0px 50px;
+
+    padding: 20px;
+    color: white;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+        font-size: 110%;
+        opacity: 0.7;
+      }
+    } 
+  }
+    
+  .textfile {
+    max-width: 400px;
+    border: 2px solid $PrimSdagColor;
+    border-radius: 0px 25px 25px 0px;
+    color: white;
+    background-color: rgb(179, 177, 177);
+    padding: 20px;
+    max-height: 100vh;
+    white-space: nowrap;
+    width: 100%;
+
+    h3{
+      padding-top: 20px;
+      color: white;
+    }
+
+    label{
+      float: right;
+    }
+
+    button{
+      background-color: white;
+    }
+
+    svg {
+      height: 35px;
+      width: 35px;
+      fill: $PrimSdagColor;
+      &:hover {
+        cursor: pointer;
       }
     }
+    
+    .rawconfig {
+      textarea{
+          width: 100%;
+          min-height: 650px;
+          padding: 12px 20px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 8px;
+          background-color: #f8f8f8;
+          font-size: 16px;
+          text-align: left;
+          //overflow-x: scroll;
+          //overflow-y: scroll;
+          //display: inline-block;
+          //overflow: hidden;
+          //text-overflow: ellipsis;
+      }
+
+      p{
+        text-align: left;
+        color: black;
+        background-color: white;
+      }
+    }
+  }
 }
 
 //____________________________ NoPage
-
 .nopage {
   padding: 50px;
 
@@ -59,7 +206,7 @@ body {
 
   a {
     text-decoration: none;
-    color: #0489D9;
+    color: $SecSdagColor;
     &:hover{
       text-decoration: underline;
       cursor: pointer;

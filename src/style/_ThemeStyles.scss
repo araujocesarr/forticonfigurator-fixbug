@@ -1,0 +1,95 @@
+#darkStyle {
+  .appWrapper{
+    .home {
+      background-color: $PrimDarkColor;
+      border-color:$SecDarkColor;
+      color: $PrimLightColor;
+
+      .devices {
+    
+        a {
+          border-color: $PrimLightColor;
+          background-color: $PrimDarkColor;
+          &:hover {
+            background-color: $SecDarkColor;
+          }
+        }
+
+        svg {
+          fill: $PrimLightColor;
+        }
+      }
+    }
+  }
+}
+
+// __________________________ SDAG Style
+#sdagStyle {
+  .appWrapper{
+    a {
+      color: $PrimLightColor;
+    } 
+    .home {
+      background-color: $PrimSdagColor;
+      border-color:$PrimLightColor;
+      color: $PrimLightColor;
+      
+      .devices {    
+        a {
+          border-color:$PrimLightColor;
+          background-color: $SecSdagColor;
+          &:hover {
+            background-color: $PrimSdagColor;
+          }
+        }
+
+        svg {
+          fill: $PrimLightColor;
+        }
+      }
+    }
+
+    
+    .fortigate {    
+      .configuration {
+        border: 2px solid $PrimLightColor;
+        background-color: $PrimSdagColor;
+        color: $PrimLightColor;
+
+        a {
+          color: $PrimLightColor;
+        } 
+      }
+        
+      .textfile {
+        border: 2px solid $PrimSdagColor;
+        color: $PrimLightColor;
+        background-color: rgb(179, 177, 177);
+
+        h3{
+          color: $PrimLightColor;
+        }
+    
+        button{
+          background-color: $PrimLightColor;
+        }
+    
+        svg {
+          fill: $PrimSdagColor;
+        }
+        
+        .rawconfig {
+          textarea{
+              border: 2px solid $PrimLightColor;
+              background-color: $PrimLightColor;
+          }
+    
+          p{
+            color: $PrimDarkColor;
+            background-color: $PrimLightColor;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,72 @@
+#darkStyle .appWrapper .home {
+  background-color: #1B1B1B;
+  border-color: black;
+  color: #F8F8F8;
+}
+#darkStyle .appWrapper .home .devices a {
+  border-color: #F8F8F8;
+  background-color: #1B1B1B;
+}
+#darkStyle .appWrapper .home .devices a:hover {
+  background-color: black;
+}
+#darkStyle .appWrapper .home .devices svg {
+  fill: #F8F8F8;
+}
+
+#sdagStyle .appWrapper a {
+  color: #F8F8F8;
+}
+#sdagStyle .appWrapper .home {
+  background-color: #0054A0;
+  border-color: #F8F8F8;
+  color: #F8F8F8;
+}
+#sdagStyle .appWrapper .home .devices a {
+  border-color: #F8F8F8;
+  background-color: #0489D9;
+}
+#sdagStyle .appWrapper .home .devices a:hover {
+  background-color: #0054A0;
+}
+#sdagStyle .appWrapper .home .devices svg {
+  fill: #F8F8F8;
+}
+#sdagStyle .appWrapper .fortigate .configuration {
+  border: 2px solid #F8F8F8;
+  background-color: #0054A0;
+  color: #F8F8F8;
+}
+#sdagStyle .appWrapper .fortigate .configuration a {
+  color: #F8F8F8;
+}
+#sdagStyle .appWrapper .fortigate .textfile {
+  border: 2px solid #0054A0;
+  color: #F8F8F8;
+  background-color: rgb(179, 177, 177);
+}
+#sdagStyle .appWrapper .fortigate .textfile h3 {
+  color: #F8F8F8;
+}
+#sdagStyle .appWrapper .fortigate .textfile button {
+  background-color: #F8F8F8;
+}
+#sdagStyle .appWrapper .fortigate .textfile svg {
+  fill: #0054A0;
+}
+#sdagStyle .appWrapper .fortigate .textfile .rawconfig textarea {
+  border: 2px solid #F8F8F8;
+  background-color: #F8F8F8;
+}
+#sdagStyle .appWrapper .fortigate .textfile .rawconfig p {
+  color: #1B1B1B;
+  background-color: #F8F8F8;
+}
+
 * {
   text-align: center;
   margin: 0px;
   padding: 0px;
-}
-
-.App {
-  text-align: center;
 }
 
 body {
@@ -19,31 +80,30 @@ body {
 }
 
 .home {
-  display: block;
   margin: auto;
   max-width: 600px;
   background-color: #0054A0;
+  border-color: #F8F8F8;
+  border-style: solid;
   border-radius: 50px;
   color: aliceblue;
+  padding: 0px 0px 50px;
 }
-.home .configchooser {
-  padding-bottom: 40px;
-  margin: auto;
-}
-.home .configchooser .devices {
+.home .devices {
   padding-bottom: 20px;
   margin: auto;
 }
-.home .configchooser .devices h1 {
-  margin: 20px;
+.home .devices h1 {
+  margin: 10px;
   margin-bottom: 0px;
   padding: 20px;
 }
-.home .configchooser .devices p {
+.home .devices p {
   padding: 40px;
+  padding-bottom: 70px;
   font-size: 22px;
 }
-.home .configchooser .devices a {
+.home .devices a {
   padding-top: 30px;
   text-decoration: none;
   color: white;
@@ -53,54 +113,109 @@ body {
   border-radius: 30px;
   background-color: #0489D9;
 }
-.home .configchooser .devices a:hover {
+.home .devices a:hover {
   transition: 0.3s;
   font-size: 110%;
   opacity: 1;
   background-color: #0054A0;
   font-weight: bold;
 }
-.home .configchooser .devices svg {
+.home .devices svg {
   margin: auto;
   height: 15px;
   width: 15px;
   fill: white;
 }
-.home .configchooser .contact {
+.home .contact {
   margin: auto;
   max-width: 400px;
   padding-top: 50px;
 }
-.home .configchooser .contact p {
+.home .contact p {
   font-size: 13px;
 }
-.home .configchooser .contact a {
+.home .contact a {
   text-decoration: none;
   color: white;
 }
-.home .configchooser .contact a:hover {
+.home .contact a:hover {
   text-decoration: underline;
   font-size: 110%;
+  opacity: 0.7;
+}
+.home .themeChanger {
+  padding-top: 40px;
+}
+.home .themeChanger button:hover {
   opacity: 0.7;
 }
 
 .fortigate {
-  display: block;
   margin: auto;
-  max-width: 800px;
+  display: flex;
+  max-width: 1600px;
+  margin-top: 10px;
+}
+.fortigate .configuration {
+  flex: 1;
+  border: 2px solid white;
   background-color: #0054A0;
-  border-radius: 50px;
+  border-radius: 50px 0px 0px 50px;
   padding: 20px;
   color: white;
 }
-.fortigate a {
+.fortigate .configuration a {
   text-decoration: none;
-  color: azure;
 }
-.fortigate a:hover {
+.fortigate .configuration a:hover {
   text-decoration: underline;
   font-size: 110%;
   opacity: 0.7;
+}
+.fortigate .textfile {
+  max-width: 400px;
+  border: 2px solid #0054A0;
+  border-radius: 0px 25px 25px 0px;
+  color: white;
+  background-color: rgb(179, 177, 177);
+  padding: 20px;
+  max-height: 100vh;
+  white-space: nowrap;
+  width: 100%;
+}
+.fortigate .textfile h3 {
+  padding-top: 20px;
+  color: white;
+}
+.fortigate .textfile label {
+  float: right;
+}
+.fortigate .textfile button {
+  background-color: white;
+}
+.fortigate .textfile svg {
+  height: 35px;
+  width: 35px;
+  fill: #0054A0;
+}
+.fortigate .textfile svg:hover {
+  cursor: pointer;
+}
+.fortigate .textfile .rawconfig textarea {
+  width: 100%;
+  min-height: 650px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  text-align: left;
+}
+.fortigate .textfile .rawconfig p {
+  text-align: left;
+  color: black;
+  background-color: white;
 }
 
 .nopage {
