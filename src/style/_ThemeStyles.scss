@@ -42,9 +42,9 @@
         border: 2px solid $PrimDarkColor;
         color: $PrimLightColor;
         background-color: rgb(179, 177, 177);
-        
         button{
           background-color: $PrimDarkColor;
+          color: $PrimLightColor;
         }
     
         svg {
@@ -115,6 +115,7 @@
         background-color: rgb(179, 177, 177);    
         button{
           background-color: $PrimLightColor;
+          color: $PrimDarkColor;
         }
     
         svg {

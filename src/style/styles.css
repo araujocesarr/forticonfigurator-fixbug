@@ -34,6 +34,7 @@
 }
 #darkStyle .appWrapper .fortigate .textfile button {
   background-color: #313536;
+  color: #F8F8F8;
 }
 #darkStyle .appWrapper .fortigate .textfile svg {
   fill: #F8F8F8;
@@ -83,6 +84,7 @@
 }
 #sdagStyle .appWrapper .fortigate .textfile button {
   background-color: #F8F8F8;
+  color: #313536;
 }
 #sdagStyle .appWrapper .fortigate .textfile svg {
   fill: #0054A0;
