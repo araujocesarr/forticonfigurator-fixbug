@@ -23,7 +23,7 @@ export default function Fortigate () {
   }
   //handle copy
   const copy = async () => {
-    await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(data);
     alert('Konfiguration wurde Kopiert');
     console.log(text)
   }
@@ -48,14 +48,27 @@ export default function Fortigate () {
   //handle forti config file
   const [selectedConfig, setSelectedConfig] = useState("60F")
   const [data, setData] = useState(selectedConfig);
-
+  const [content, setContent] = useState()
+  
   useEffect(() => {
 
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/configFiles/${selectedConfig}`);
         setData(response.data);
-        console.log(data)
+
+        const hostname = "testingmatters";
+        const vlan = "99";
+        const regexHostname = new RegExp('{hostname}', 'g');
+        const regexVlan = new RegExp('{vlan}', 'g');
+
+        const replacedText = response.data
+        .replace(regexHostname, hostname)
+        .replace(regexVlan, vlan);
+
+        setContent(replacedText)
+
+        console.log(replacedText)
       } catch (error) {
         console.log(error);
       }
@@ -104,7 +117,7 @@ export default function Fortigate () {
         <div className="rawconfig">
           <h3>wähle zuerst eine Konfigurationsdatei aus</h3>
           <h3>Konfig für {selectedConfig}</h3>
-          <textarea type="text" spellCheck="false" value={data} onChange={inputHandler}>
+          <textarea type="text" spellCheck="false" value={content} onChange={inputHandler}>
           </textarea>
         </div>
       </div>
