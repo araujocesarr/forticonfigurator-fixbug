@@ -208,6 +208,12 @@ body {
   font-size: 110%;
   opacity: 0.7;
 }
+.fortigate .configuration form {
+  flex-direction: row;
+}
+.fortigate .configuration form label {
+  padding: 0px 25px;
+}
 .fortigate .textfile {
   max-width: 400px;
   border: 2px solid #0054A0;

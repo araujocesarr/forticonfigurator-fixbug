@@ -57,18 +57,15 @@ export default function Fortigate () {
         const response = await axios.get(`http://localhost:3000/configFiles/${selectedConfig}`);
         setData(response.data);
 
-        const hostname = "testingmatters";
+        const hostname = "SDAGHostname1";
         const vlan = "99";
         const regexHostname = new RegExp('{hostname}', 'g');
         const regexVlan = new RegExp('{vlan}', 'g');
-
         const replacedText = response.data
         .replace(regexHostname, hostname)
         .replace(regexVlan, vlan);
 
         setContent(replacedText)
-
-        console.log(replacedText)
       } catch (error) {
         console.log(error);
       }
@@ -77,8 +74,7 @@ export default function Fortigate () {
     fetchData();
   }, [selectedConfig]);
 
-  return(
-    
+  return(    
     <div className="fortigate">
       <div className="configuration">
         <h1>FortiGate Konfigurations Seite!</h1>
@@ -97,6 +93,14 @@ export default function Fortigate () {
           <label>
               Hostname:
               <input type="text" name="hostname" />
+          </label>
+          <label>
+              Which Vlans you want?:
+              <input type="text" name="vlan" />
+          </label>
+          <label>
+              Test 
+              <input type="text" name="test" />
           </label>
           <input type="submit" value="Submit" />
           <button type="reset">Reset</button>

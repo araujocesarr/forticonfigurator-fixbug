@@ -1,11 +1,17 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext()
 
 export const ThemeContextProvider = ({ children }) => {
 
-  const [ theme, setTheme ] = useState("sdagStyle")
+  const [ theme, setTheme ] = useState(() =>
+  localStorage.getItem("theme") || "sdagStyle" )
+
   const values = { theme, setTheme }
+
+  useEffect (() => { 
+    localStorage.setItem("theme", theme)
+  }, [theme])
 
   return (
     <ThemeContext.Provider value={values}>
