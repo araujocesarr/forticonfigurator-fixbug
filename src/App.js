@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Fortigate from './pages/Fortigate';
 import NoPage from "./pages/NoPage"
 import { useThemeContext } from './components/context/ThemeContext';
+import Navbar from './components/Navbar';
 
 function App() {
 
@@ -12,6 +13,8 @@ function App() {
     <Router>
       <div className='app' id={theme}>
         <div className='appWrapper'>
+          <Navbar/>
+          
           <Routes>
             <Route path="/" element={<Home />} />
               <Route path="fortigate" element={<Fortigate />} />

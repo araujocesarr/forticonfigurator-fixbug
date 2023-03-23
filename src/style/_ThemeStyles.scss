@@ -1,12 +1,42 @@
-#darkStyle {
+#Dark {
+
   a {
     color: $PrimLightColor;
   } 
+  p{
+    color: $PrimLightColor;
+  }
   h1{
     color: $PrimLightColor;
   }
   h3{
     color: $PrimLightColor;
+  }
+
+  .navbar {
+    background-color: $neutralDark;
+    
+    .navbarWrapper {
+
+      background-color: $PrimDarkColor;
+      .navigation {
+        a {
+          color: $PrimLightColor;
+        }
+      }
+      .settings{
+        svg {
+          fill: $PrimLightColor;
+        }
+        .settingItems {
+          background-color: $PrimDarkColor;
+          button{
+            color: $PrimLightColor;
+            background-color: $PrimDarkColor;
+          }
+        }
+      }
+    }
   }
 
   .appWrapper{
@@ -65,8 +95,11 @@
 }
 
 // __________________________ SDAG Style
-#sdagStyle {
+#SDAG {
   a {
+    color: $PrimLightColor;
+  }
+  p {
     color: $PrimLightColor;
   }
   h1{
@@ -77,12 +110,37 @@
   }
   .appWrapper{
 
+    .navbar {
+      background-color: $neutral;
+      
+      .navbarWrapper {
+        background-color: $PrimSdagColor;
+        .navigation {
+          a {
+            color: $PrimLightColor;
+          }
+        }
+        .settings{
+          svg {
+            fill: $PrimLightColor;
+          }
+          .settingItems {
+            background-color: $PrimSdagColor;
+            button{
+              color: $PrimLightColor;
+              background-color: $PrimSdagColor;
+            }
+          }
+        }
+      }
+    }
+  
     .home {
       background-color: $PrimSdagColor;
       border-color:$PrimLightColor;
       color: $PrimLightColor;
       
-      .devices {    
+      .devices {
         a {
           border-color:$PrimLightColor;
           background-color: $SecSdagColor;

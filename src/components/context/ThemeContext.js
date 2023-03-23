@@ -5,7 +5,7 @@ export const ThemeContext = createContext()
 export const ThemeContextProvider = ({ children }) => {
 
   const [ theme, setTheme ] = useState(() =>
-  localStorage.getItem("theme") || "sdagStyle" )
+  localStorage.getItem("theme") || "SDAG" )
 
   const values = { theme, setTheme }
 

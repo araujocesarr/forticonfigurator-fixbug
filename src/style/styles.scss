@@ -4,6 +4,8 @@ $SecSdagColor: #0489D9;
 $PrimDarkColor: #313536;
 $SecDarkColor:black ;
 $PrimLightColor:#F8F8F8;
+$neutral: #B3B1B1;
+$neutralDark: grey;
 
 // __________________ Imports
 @import "_ThemeStyles.scss";
@@ -21,9 +23,71 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-position: left 55px;
   background-image: url("../../public/sdag_standort.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #B3B1B1;
+}
+
+// ___________________________ Navbar
+.navbar {
+  background-color: $PrimLightColor;
+  margin-bottom: 40px;
+
+  .navbarWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+    margin: auto;
+    max-width: 1280px;
+    background-color: $PrimSdagColor;
+    border-radius: 15px;
+    .navigation {
+      padding-left: 50px;
+      a {
+        text-decoration: none;
+        color: azure;
+        &:hover {
+          text-decoration: underline;
+          font-size: 110%;
+          opacity: 0.7;
+        }
+      }
+    }
+    .settings{
+      padding-right: 50px;
+      display: flex;
+      position: relative;
+      svg {
+        width: 20px;
+        fill: $PrimLightColor;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.2);
+        }
+      }
+      .settingItems {
+        position: absolute;
+        top: 40px;
+        right: -10px;
+        background-color: $PrimSdagColor;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 4px;
+        width: 100px;
+        button{
+        
+          color: $PrimLightColor;
+          background-color: $PrimSdagColor;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+  }
 }
 
 //____________________________ Home
@@ -98,15 +162,6 @@ body {
       }
     }
   }
-
-  .themeChanger {
-    padding-top: 40px;
-    button{
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-  }
 }
 
 //____________________________ Fortigate
@@ -114,7 +169,6 @@ body {
   margin: auto;
   display: flex;
   max-width: 1600px;
-  margin-top: 10px;
   h1{
     padding: 30px;
   }
@@ -127,15 +181,6 @@ body {
     padding: 20px;
     color: white;
 
-    a {
-      text-decoration: none;
-      color: azure;
-      &:hover {
-        text-decoration: underline;
-        font-size: 110%;
-        opacity: 0.7;
-      }
-    }
     form {
       flex-direction: row;
       

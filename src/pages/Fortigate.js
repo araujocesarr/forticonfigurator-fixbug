@@ -1,20 +1,10 @@
 import "../style/styles.css"
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Clipboard from "../components/icons/Clipboard";
-import { useThemeContext } from "../components/context/ThemeContext";
 
 export default function Fortigate () {
-  //change Style
-  const {setTheme} = useThemeContext()
-
-  const [checked, setChecked] = useState(false)
-  const handleSwitch = () => {
-    setTheme((state) => (state === "sdagStyle" ? "darkStyle" : "sdagStyle"))
-    setChecked(!checked)
-  }
-  
+ 
   //handle text
   const [text, setText] = useState('');
 
@@ -50,6 +40,7 @@ export default function Fortigate () {
   const [data, setData] = useState(selectedConfig);
   const [content, setContent] = useState()
   
+  //handle variables
   useEffect(() => {
 
     const fetchData = async () => {
@@ -105,8 +96,6 @@ export default function Fortigate () {
           <input type="submit" value="Submit" />
           <button type="reset">Reset</button>
         </form>
-        <button onClick={handleSwitch}>change style</button>
-        <Link to="/">Back home</Link>
       </div>
 
       <div className="textfile">

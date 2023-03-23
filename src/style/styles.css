@@ -1,95 +1,139 @@
-#darkStyle a {
+#Dark a {
   color: #F8F8F8;
 }
-#darkStyle h1 {
+#Dark p {
   color: #F8F8F8;
 }
-#darkStyle h3 {
+#Dark h1 {
   color: #F8F8F8;
 }
-#darkStyle .appWrapper .home {
+#Dark h3 {
+  color: #F8F8F8;
+}
+#Dark .navbar {
+  background-color: grey;
+}
+#Dark .navbar .navbarWrapper {
+  background-color: #313536;
+}
+#Dark .navbar .navbarWrapper .navigation a {
+  color: #F8F8F8;
+}
+#Dark .navbar .navbarWrapper .settings svg {
+  fill: #F8F8F8;
+}
+#Dark .navbar .navbarWrapper .settings .settingItems {
+  background-color: #313536;
+}
+#Dark .navbar .navbarWrapper .settings .settingItems button {
+  color: #F8F8F8;
+  background-color: #313536;
+}
+#Dark .appWrapper .home {
   background-color: #313536;
   border-color: black;
   color: #F8F8F8;
 }
-#darkStyle .appWrapper .home .devices a {
+#Dark .appWrapper .home .devices a {
   border-color: #F8F8F8;
   background-color: #313536;
 }
-#darkStyle .appWrapper .home .devices a:hover {
+#Dark .appWrapper .home .devices a:hover {
   background-color: black;
 }
-#darkStyle .appWrapper .home .devices svg {
+#Dark .appWrapper .home .devices svg {
   fill: #F8F8F8;
 }
-#darkStyle .appWrapper .fortigate .configuration {
+#Dark .appWrapper .fortigate .configuration {
   border: 2px solid black;
   background-color: #313536;
   color: #F8F8F8;
 }
-#darkStyle .appWrapper .fortigate .textfile {
+#Dark .appWrapper .fortigate .textfile {
   border: 2px solid #313536;
   color: #F8F8F8;
   background-color: rgb(179, 177, 177);
 }
-#darkStyle .appWrapper .fortigate .textfile button {
+#Dark .appWrapper .fortigate .textfile button {
   background-color: #313536;
   color: #F8F8F8;
 }
-#darkStyle .appWrapper .fortigate .textfile svg {
+#Dark .appWrapper .fortigate .textfile svg {
   fill: #F8F8F8;
 }
-#darkStyle .appWrapper .fortigate .textfile .rawconfig textarea {
+#Dark .appWrapper .fortigate .textfile .rawconfig textarea {
   border: 2px solid #313536;
   background-color: #313536;
   color: #F8F8F8;
 }
 
-#sdagStyle a {
+#SDAG a {
   color: #F8F8F8;
 }
-#sdagStyle h1 {
+#SDAG p {
   color: #F8F8F8;
 }
-#sdagStyle h3 {
+#SDAG h1 {
   color: #F8F8F8;
 }
-#sdagStyle .appWrapper .home {
+#SDAG h3 {
+  color: #F8F8F8;
+}
+#SDAG .appWrapper .navbar {
+  background-color: #B3B1B1;
+}
+#SDAG .appWrapper .navbar .navbarWrapper {
+  background-color: #0054A0;
+}
+#SDAG .appWrapper .navbar .navbarWrapper .navigation a {
+  color: #F8F8F8;
+}
+#SDAG .appWrapper .navbar .navbarWrapper .settings svg {
+  fill: #F8F8F8;
+}
+#SDAG .appWrapper .navbar .navbarWrapper .settings .settingItems {
+  background-color: #0054A0;
+}
+#SDAG .appWrapper .navbar .navbarWrapper .settings .settingItems button {
+  color: #F8F8F8;
+  background-color: #0054A0;
+}
+#SDAG .appWrapper .home {
   background-color: #0054A0;
   border-color: #F8F8F8;
   color: #F8F8F8;
 }
-#sdagStyle .appWrapper .home .devices a {
+#SDAG .appWrapper .home .devices a {
   border-color: #F8F8F8;
   background-color: #0489D9;
 }
-#sdagStyle .appWrapper .home .devices a:hover {
+#SDAG .appWrapper .home .devices a:hover {
   background-color: #0054A0;
 }
-#sdagStyle .appWrapper .home .devices svg {
+#SDAG .appWrapper .home .devices svg {
   fill: #F8F8F8;
 }
-#sdagStyle .appWrapper .fortigate .configuration {
+#SDAG .appWrapper .fortigate .configuration {
   border: 2px solid #F8F8F8;
   background-color: #0054A0;
   color: #F8F8F8;
 }
-#sdagStyle .appWrapper .fortigate .configuration a {
+#SDAG .appWrapper .fortigate .configuration a {
   color: #F8F8F8;
 }
-#sdagStyle .appWrapper .fortigate .textfile {
+#SDAG .appWrapper .fortigate .textfile {
   border: 2px solid #0054A0;
   color: #F8F8F8;
   background-color: rgb(179, 177, 177);
 }
-#sdagStyle .appWrapper .fortigate .textfile button {
+#SDAG .appWrapper .fortigate .textfile button {
   background-color: #F8F8F8;
   color: #313536;
 }
-#sdagStyle .appWrapper .fortigate .textfile svg {
+#SDAG .appWrapper .fortigate .textfile svg {
   fill: #0054A0;
 }
-#sdagStyle .appWrapper .fortigate .textfile .rawconfig textarea {
+#SDAG .appWrapper .fortigate .textfile .rawconfig textarea {
   border: 2px solid #F8F8F8;
   background-color: #F8F8F8;
   color: #313536;
@@ -106,9 +150,68 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-position: left 55px;
   background-image: url("../../public/sdag_standort.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #B3B1B1;
+}
+
+.navbar {
+  background-color: #F8F8F8;
+  margin-bottom: 40px;
+}
+.navbar .navbarWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px;
+  margin: auto;
+  max-width: 1280px;
+  background-color: #0054A0;
+  border-radius: 15px;
+}
+.navbar .navbarWrapper .navigation {
+  padding-left: 50px;
+}
+.navbar .navbarWrapper .navigation a {
+  text-decoration: none;
+  color: azure;
+}
+.navbar .navbarWrapper .navigation a:hover {
+  text-decoration: underline;
+  font-size: 110%;
+  opacity: 0.7;
+}
+.navbar .navbarWrapper .settings {
+  padding-right: 50px;
+  display: flex;
+  position: relative;
+}
+.navbar .navbarWrapper .settings svg {
+  width: 20px;
+  fill: #F8F8F8;
+}
+.navbar .navbarWrapper .settings svg:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+.navbar .navbarWrapper .settings .settingItems {
+  position: absolute;
+  top: 40px;
+  right: -10px;
+  background-color: #0054A0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 4px;
+  width: 100px;
+}
+.navbar .navbarWrapper .settings .settingItems button {
+  color: #F8F8F8;
+  background-color: #0054A0;
+}
+.navbar .navbarWrapper .settings .settingItems button:hover {
+  opacity: 0.7;
 }
 
 .home {
@@ -175,18 +278,11 @@ body {
   font-size: 110%;
   opacity: 0.7;
 }
-.home .themeChanger {
-  padding-top: 40px;
-}
-.home .themeChanger button:hover {
-  opacity: 0.7;
-}
 
 .fortigate {
   margin: auto;
   display: flex;
   max-width: 1600px;
-  margin-top: 10px;
 }
 .fortigate h1 {
   padding: 30px;
@@ -198,15 +294,6 @@ body {
   border-radius: 50px 0px 0px 50px;
   padding: 20px;
   color: white;
-}
-.fortigate .configuration a {
-  text-decoration: none;
-  color: azure;
-}
-.fortigate .configuration a:hover {
-  text-decoration: underline;
-  font-size: 110%;
-  opacity: 0.7;
 }
 .fortigate .configuration form {
   flex-direction: row;

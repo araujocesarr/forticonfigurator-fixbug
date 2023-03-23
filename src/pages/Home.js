@@ -1,22 +1,11 @@
 import "../style/styles.css"
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useThemeContext } from "../components/context/ThemeContext";
-
 import Arrow from "../components/icons/arrow"
 
 export default function Home () {
 
-  const {theme, setTheme} = useThemeContext()
-
-  const [checked, setChecked] = useState(false)
-  const handleSwitch = () => {
-    setTheme((state) => (state === "sdagStyle" ? "darkStyle" : "sdagStyle"))
-    setChecked(!checked)
-  }
-
   return(
-    <div className="home" id={theme}>
+    <div className="home">
       <div className="devices">
         <h1>Konfigurator</h1>
         <p>Wähle das Produkt, wofür du eine Konfigurationsdatei erstellen möchtest:</p>
@@ -29,10 +18,7 @@ export default function Home () {
           </Link>
         &nbsp; gemacht werden</p>
       </div>
-      <div className="themeChanger">
-        <p>Wechsle dein Style</p>
-        <button onClick={handleSwitch}>change style</button>
-      </div>
+
     </div>
   );
 }
