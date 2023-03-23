@@ -1,6 +1,6 @@
 import React, {useEffect}from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useThemeContext } from "../components/context/ThemeContext";
 import Gear from "../components/icons/Gear"
 
@@ -25,11 +25,20 @@ export default function Navbar() {
     setChecked(!checked)
   }
 
+  //use Location for Logo or Back Home Component
+  const location = useLocation()
+  const isStartPage = location.pathname === "/"
+
   return(
     <div className="navbar" id={theme}>
       <div className="navbarWrapper">
         <div className="navigation">
-          <Link to="/">Back home</Link>
+          { isStartPage ? (
+            <p>Smart Dynamic AG</p>
+          ) : (
+            <Link to="/">Back home</Link>
+          )}
+
         </div>
 
         <div className="settings" onClick={handleMenuClick}>
@@ -37,7 +46,7 @@ export default function Navbar() {
           {menuOpen && 
             <div className="settingItems">
               <p>change style:</p>
-              <button onClick={handleSwitch}>{theme} style</button>
+              <button onClick={handleSwitch}>{theme === "SDAG" ? "Dark" : "SDAG"}</button>
             </div>
           }
         </div>

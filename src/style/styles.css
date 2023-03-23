@@ -150,7 +150,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-position: left 55px;
+  background-position: left 60px;
   background-image: url("../../public/sdag_standort.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -172,7 +172,11 @@ body {
   border-radius: 15px;
 }
 .navbar .navbarWrapper .navigation {
-  padding-left: 50px;
+  padding-left: 80px;
+}
+.navbar .navbarWrapper .navigation p {
+  font-weight: bold;
+  text-decoration: underline;
 }
 .navbar .navbarWrapper .navigation a {
   text-decoration: none;
@@ -207,6 +211,7 @@ body {
   width: 100px;
 }
 .navbar .navbarWrapper .settings .settingItems button {
+  padding: 5px;
   color: #F8F8F8;
   background-color: #0054A0;
 }

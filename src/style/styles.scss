@@ -23,7 +23,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-position: left 55px;
+  background-position: left 60px;
   background-image: url("../../public/sdag_standort.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -45,7 +45,11 @@ body {
     background-color: $PrimSdagColor;
     border-radius: 15px;
     .navigation {
-      padding-left: 50px;
+      padding-left: 80px;
+      p {
+        font-weight: bold;
+        text-decoration: underline;
+      }
       a {
         text-decoration: none;
         color: azure;
@@ -78,7 +82,7 @@ body {
         border-radius: 4px;
         width: 100px;
         button{
-        
+          padding: 5px;    
           color: $PrimLightColor;
           background-color: $PrimSdagColor;
           &:hover {
