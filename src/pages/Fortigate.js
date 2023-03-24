@@ -1,7 +1,9 @@
 import "../style/styles.css"
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Clipboard from "../components/icons/Clipboard";
+import Download from "../components/icons/Download"
 
 export default function Fortigate () {
  
@@ -99,16 +101,19 @@ export default function Fortigate () {
       </div>
 
       <div className="textfile">
-        <button onClick={copy}><Clipboard />
-        </button>
 
+        <Link onClick={copy}><Clipboard /></Link>
+        <Link to="test.txt" download><Download/></Link>
         <label>
           <input type="text" name="email" placeholder="c.hernandez@smartdynamic.ch"/>
           <button>Send</button>
         </label>
 
+
+
         <div className="rawconfig">
           <h3>wähle zuerst eine Konfigurationsdatei aus</h3>
+
           <h3>Konfig für {selectedConfig}</h3>
           <textarea type="text" spellCheck="false" value={content} onChange={inputHandler}>
           </textarea>

@@ -1,4 +1,4 @@
-import React, {useEffect}from "react";
+import React from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useThemeContext } from "../components/context/ThemeContext";
@@ -6,16 +6,11 @@ import Gear from "../components/icons/Gear"
 
 export default function Navbar() {
   //Settingshandling
-  const [menuOpen, setMenuOpen] = useState(
-    localStorage.getItem("menuOpen") || "true" );
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
   };
-
-  useEffect(() => {
-    localStorage.setItem("menuOpen", menuOpen);
-  }, [menuOpen]);
 
   //Themehandling
   const {theme, setTheme} = useThemeContext()

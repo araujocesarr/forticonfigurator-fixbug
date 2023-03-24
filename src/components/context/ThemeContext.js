@@ -8,7 +8,7 @@ export const ThemeContextProvider = ({ children }) => {
   localStorage.getItem("theme") || "SDAG" )
 
   const values = { theme, setTheme }
-
+  
   useEffect (() => { 
     localStorage.setItem("theme", theme)
   }, [theme])
