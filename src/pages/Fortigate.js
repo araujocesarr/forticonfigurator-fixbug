@@ -21,6 +21,16 @@ export default function Fortigate () {
     console.log(text)
   }
 
+  //handle Download
+  function downloadFile(){
+    const element = document.createElement("a");
+    const file = new Blob([content], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = "config.txt";
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+  }
+
   //handle forti config file
   const [selectedConfig, setSelectedConfig] = useState("60F")
   const [data, setData] = useState(selectedConfig);
@@ -90,7 +100,7 @@ export default function Fortigate () {
 
       <div className="textfile">
         <Link onClick={copy}><Clipboard /></Link>
-        <Link to="test.txt" download><Download/></Link>
+        <Link onClick={downloadFile} download><Download/></Link>
         <label>
           <input type="text" name="email" placeholder="c.hernandez@smartdynamic.ch"/>
           <button>Send</button>
