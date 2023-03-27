@@ -4,7 +4,7 @@
 #global_vdom=1
 config system global
     set alias "FortiGate-40F"
-    set hostname "FWSEM10"
+    set hostname "{hostname}"
     set switch-controller enable
     set timezone 04
 end

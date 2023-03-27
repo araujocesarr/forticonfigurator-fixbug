@@ -301,9 +301,12 @@ body {
   color: white;
 }
 .fortigate .configuration form {
-  flex-direction: row;
+  flex-direction: column-reverse;
 }
-.fortigate .configuration form label {
+.fortigate .configuration form .object {
+  padding: 20px;
+}
+.fortigate .configuration form .object label {
   padding: 0px 25px;
 }
 .fortigate .textfile {

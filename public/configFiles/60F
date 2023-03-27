@@ -5,7 +5,7 @@
 config system global
     set alias "FortiGate-60F"
     set gui-certificates enable
-    set hostname "{FWFUHWI01}"
+    set hostname "{hostname}"
     set management-port-use-admin-sport disable
     set switch-controller enable
     set timezone 26

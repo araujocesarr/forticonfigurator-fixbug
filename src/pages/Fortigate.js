@@ -13,6 +13,7 @@ export default function Fortigate () {
   const inputHandler = event => {
     setText(event.target.value);
   }
+  
   //handle copy
   const copy = async () => {
     await navigator.clipboard.writeText(data);
@@ -20,44 +21,25 @@ export default function Fortigate () {
     console.log(text)
   }
 
-  //handlesubmit:
-  function handleSubmit(e) {
-    e.preventDefault();
-    // Read the form data
-    const form = e.target;
-    const formData = new FormData(form);
-    // You can pass formData as a fetch body directly:
-    fetch('/some-api', { method: form.method, body: formData });
-    // You can generate a URL out of it, as the browser does by default:
-    console.log(new URLSearchParams(formData).toString());
-    // You can work with it as a plain object.
-    const formJson = Object.fromEntries(formData.entries());
-    console.log(formJson); // (!) This doesn't include multiple select values
-    // Or you can get an array of name-value pairs.
-    console.log([...formData.entries()]);
-  }
-
   //handle forti config file
   const [selectedConfig, setSelectedConfig] = useState("60F")
   const [data, setData] = useState(selectedConfig);
   const [content, setContent] = useState()
-  
-  //handle variables
-  useEffect(() => {
+  //user input variables
+  const [hostname, setHostname] = useState('');
+  const [vlan, setVlan] = useState('');
 
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/configFiles/${selectedConfig}`);
         setData(response.data);
 
-        const hostname = "SDAGHostname1";
-        const vlan = "99";
         const regexHostname = new RegExp('{hostname}', 'g');
         const regexVlan = new RegExp('{vlan}', 'g');
         const replacedText = response.data
         .replace(regexHostname, hostname)
         .replace(regexVlan, vlan);
-
         setContent(replacedText)
       } catch (error) {
         console.log(error);
@@ -65,7 +47,7 @@ export default function Fortigate () {
     };
 
     fetchData();
-  }, [selectedConfig]);
+  }, [selectedConfig, hostname, vlan]);
 
   return(    
     <div className="fortigate">
@@ -82,26 +64,31 @@ export default function Fortigate () {
           </select>
         </label>
 
-        <form onSubmit={handleSubmit}>
-          <label>
-              Hostname:
-              <input type="text" name="hostname" />
-          </label>
-          <label>
-              Which Vlans you want?:
-              <input type="text" name="vlan" />
-          </label>
-          <label>
-              Test 
-              <input type="text" name="test" />
-          </label>
+        <form>
+          <div className="object">
+            <label>
+                Hostname:
+                <input type="text" name="hostname" value={hostname} onChange={e => setHostname(e.target.value)} />
+            </label>
+          </div>
+          <div className="object">
+            <label>
+                Which Vlans you want?:
+                <input type="text" name="vlan" value={vlan} onChange={e => setVlan(e.target.value)}/>
+            </label>
+          </div>
+          <div className="object">
+            <label>
+                Test 
+                <input type="text" name="test" />
+            </label>
+          </div>
           <input type="submit" value="Submit" />
           <button type="reset">Reset</button>
         </form>
       </div>
 
       <div className="textfile">
-
         <Link onClick={copy}><Clipboard /></Link>
         <Link to="test.txt" download><Download/></Link>
         <label>
@@ -109,10 +96,7 @@ export default function Fortigate () {
           <button>Send</button>
         </label>
 
-
-
         <div className="rawconfig">
-          <h3>wähle zuerst eine Konfigurationsdatei aus</h3>
 
           <h3>Konfig für {selectedConfig}</h3>
           <textarea type="text" spellCheck="false" value={content} onChange={inputHandler}>
