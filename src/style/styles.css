@@ -287,7 +287,9 @@ body {
 .fortigate {
   margin: auto;
   display: flex;
-  max-width: 1600px;
+  max-width: 130vh;
+  max-height: 90vh;
+  overflow: hidden;
 }
 .fortigate h1 {
   padding: 30px;
@@ -299,6 +301,7 @@ body {
   border-radius: 50px 0px 0px 50px;
   padding: 20px;
   color: white;
+  position: relative;
 }
 .fortigate .configuration form {
   flex-direction: column-reverse;
@@ -309,16 +312,103 @@ body {
 .fortigate .configuration form .object label {
   padding: 0px 25px;
 }
+.fortigate .configuration form .object label input {
+  text-align: left;
+}
+.fortigate .configuration form .ports {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #F8F8F8;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 25px;
+}
+.fortigate .configuration form .ports .port {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+.fortigate .configuration form .ports .port label {
+  padding: 10px;
+}
+.fortigate .configuration form .ports .port label p {
+  margin: 0;
+  max-width: 50px;
+}
+.fortigate .configuration form .ports .port label svg {
+  border: 1px solid #F8F8F8;
+  border-radius: 5px;
+  width: 25px;
+  fill: #F8F8F8;
+  margin: 0px;
+}
+.fortigate .configuration form .ports .port label svg:hover {
+  fill: grey;
+  cursor: pointer;
+  border-color: grey;
+}
+.fortigate .configuration form .ports .port label.active svg {
+  fill: greenyellow;
+  border-color: greenyellow;
+}
+.fortigate .configuration form .ports .menu .submenu ol {
+  list-style: none;
+}
+.fortigate .configuration form .ports .menu .submenu ol li {
+  margin: auto;
+  max-width: 250px;
+  display: flex;
+  justify-content: space-between;
+}
+.fortigate .configuration form .ports .menu .submenu .adminaccess {
+  margin: auto;
+}
+.fortigate .configuration form .ports .menu .submenu .adminaccess p {
+  padding: 10px 0px 10px 0px;
+}
+.fortigate .configuration form .ports .menu .submenu .adminaccess li {
+  max-width: 90px;
+}
+.fortigate .configuration form .ports .dhcpmenu ol {
+  list-style: none;
+}
+.fortigate .configuration form .ports .dhcpmenu ol li {
+  margin: auto;
+  max-width: 250px;
+  display: flex;
+  justify-content: space-between;
+}
+.fortigate .configuration form .sdagstandards {
+  padding-top: 10px;
+}
+.fortigate .configuration form .sdagstandards p {
+  padding: 15px 0px 15px 0px;
+}
+.fortigate .configuration form .sdagstandards li {
+  margin: auto;
+  list-style: none;
+  max-width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.fortigate .configuration form button {
+  position: absolute;
+  bottom: 0;
+}
 .fortigate .textfile {
   max-width: 400px;
+  height: 70vh;
   border: 2px solid #0054A0;
   border-radius: 0px 25px 25px 0px;
   color: white;
   background-color: rgb(179, 177, 177);
   padding: 20px;
-  max-height: 100vh;
   white-space: nowrap;
   width: 100%;
+  height: 100%;
 }
 .fortigate .textfile h3 {
   padding-top: 20px;
@@ -340,7 +430,7 @@ body {
 }
 .fortigate .textfile .rawconfig textarea {
   width: 100%;
-  min-height: 650px;
+  min-height: 80vh;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;

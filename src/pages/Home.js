@@ -13,7 +13,7 @@ export default function Home () {
       </div>
       <div className="contact">
         <p>für Änderungen oder andere Anliegen kann ein Mail an &nbsp;
-          <Link to='javascript:void(0)' onClick={() => window.location = 'mailto:c.hernandez@smartdynamic.ch'}>
+          <Link to='#' onClick={() => window.location = 'mailto:'}>
             c.hernandez@smartdynamic.ch 
           </Link>
         &nbsp; gemacht werden</p>

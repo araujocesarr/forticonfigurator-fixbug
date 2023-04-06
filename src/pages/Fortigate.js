@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Clipboard from "../components/icons/Clipboard";
 import Download from "../components/icons/Download"
+import Mail from "../components/icons/Mail"
+import Ports40F from "../components/ports/Ports40F";
+import Ports60F from "../components/ports/Ports60F";
+import Ports80F from "../components/ports/Ports80F";
+import Ports100F from "../components/ports/Ports100F";
 
 export default function Fortigate () {
  
-  //handle text
-  const [text, setText] = useState('');
-
   const inputHandler = event => {
     setText(event.target.value);
   }
@@ -18,7 +20,6 @@ export default function Fortigate () {
   const copy = async () => {
     await navigator.clipboard.writeText(data);
     alert('Konfiguration wurde Kopiert');
-    console.log(text)
   }
 
   //handle Download
@@ -30,16 +31,18 @@ export default function Fortigate () {
     document.body.appendChild(element); // Required for this to work in FireFox
     element.click();
   }
-
   //handle forti config file
+  const [text, setText] = useState('');
   const [selectedConfig, setSelectedConfig] = useState("60F")
   const [data, setData] = useState(selectedConfig);
   const [content, setContent] = useState()
+
   //user input variables
   const [hostname, setHostname] = useState('');
   const [vlan, setVlan] = useState('');
 
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/configFiles/${selectedConfig}`);
@@ -62,7 +65,7 @@ export default function Fortigate () {
   return(    
     <div className="fortigate">
       <div className="configuration">
-        <h1>FortiGate Konfigurations Seite!</h1>
+        <h1>Forticonfigurator</h1>
 
         <label>
           Wähle deine Konfigurationsdatei aus:
@@ -77,40 +80,71 @@ export default function Fortigate () {
         <form>
           <div className="object">
             <label>
-                Hostname:
-                <input type="text" name="hostname" value={hostname} onChange={e => setHostname(e.target.value)} />
+              Hostname:
+              <input type="text" 
+                name="hostname" 
+                value={hostname} 
+                placeholder="SDAGFW01"
+                onChange={e => setHostname(e.target.value)} 
+              />
             </label>
           </div>
-          <div className="object">
-            <label>
-                Which Vlans you want?:
-                <input type="text" name="vlan" value={vlan} onChange={e => setVlan(e.target.value)}/>
-            </label>
+
+          {selectedConfig === '40F' && <Ports40F />}
+          {selectedConfig === '60F' && <Ports60F />}
+          {selectedConfig === '80F' && <Ports80F />}
+          {selectedConfig === '100F' && <Ports100F />}
+          <div className="sdagstandards">
+            <p>Which SDAG Standards you want to activate?</p>
+            <ol>
+              <li>
+                Policies:
+                <input 
+                  type="checkbox"
+                  name="https"
+                  defaultChecked="yes"
+                />
+              </li>
+
+              <li>
+                Services:
+                <input 
+                  type="checkbox"
+                  name="https"
+                  defaultChecked="yes" 
+                />
+              </li>
+
+              <li>
+                VPN User:
+                <input 
+                  type="checkbox"
+                  name="https" 
+                  defaultChecked="yes"
+                />
+              </li>
+              <li>
+                SIP ALG:
+                <input 
+                  type="checkbox"
+                  name="https"
+                  defaultChecked="yes"
+                />
+              </li>
+            </ol>
           </div>
-          <div className="object">
-            <label>
-                Test 
-                <input type="text" name="test" />
-            </label>
-          </div>
-          <input type="submit" value="Submit" />
-          <button type="reset">Reset</button>
+          <button type="reset" value="Reset Form">Reset</button>
         </form>
       </div>
 
       <div className="textfile">
         <Link onClick={copy}><Clipboard /></Link>
         <Link onClick={downloadFile} download><Download/></Link>
-        <label>
-          <input type="text" name="email" placeholder="c.hernandez@smartdynamic.ch"/>
-          <button>Send</button>
-        </label>
+        <Link to='#' onClick={() => window.location = 'mailto:'}><Mail /></Link>
 
         <div className="rawconfig">
-
           <h3>Konfig für {selectedConfig}</h3>
-          <textarea type="text" spellCheck="false" value={content} onChange={inputHandler}>
-          </textarea>
+          <textarea type="text" spellCheck="false" value={content} onChange={inputHandler} />
         </div>
       </div>
     </div>
