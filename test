@@ -1,0 +1,9 @@
+const handleConfigChange = (e, configKey) => {
+    const updatedPortConfigs = [...portConfigs];
+    const index = updatedPortConfigs.findIndex(config => config.portNumber === selectedPort);
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+  
+    updatedPortConfigs[index][configKey] = value;
+  
+    setPortConfigs(updatedPortConfigs);
+  };

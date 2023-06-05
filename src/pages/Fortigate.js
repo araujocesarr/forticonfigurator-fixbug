@@ -2,23 +2,29 @@ import "../style/styles.css"
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import Clipboard from "../components/icons/Clipboard";
 import Download from "../components/icons/Download"
 import Mail from "../components/icons/Mail"
+
 import Ports40F from "../components/ports/Ports40F";
 import Ports60F from "../components/ports/Ports60F";
 import Ports80F from "../components/ports/Ports80F";
 import Ports100F from "../components/ports/Ports100F";
+import Policy from "../components/standardconfigs/Policy"
+import SipAlg from "../components/standardconfigs/SipAlg"
+import Services from "../components/standardconfigs/Services";
+import VPNUser from "../components/standardconfigs/VPNUser";
 
 export default function Fortigate () {
- 
+  //config changer
   const inputHandler = event => {
     setText(event.target.value);
   }
   
   //handle copy
   const copy = async () => {
-    await navigator.clipboard.writeText(data);
+    await navigator.clipboard.writeText(content);
     alert('Konfiguration wurde Kopiert');
   }
 
@@ -31,45 +37,73 @@ export default function Fortigate () {
     document.body.appendChild(element); // Required for this to work in FireFox
     element.click();
   }
-  //handle forti config file
+
+  //const to handle forti config file
   const [text, setText] = useState('');
-  const [selectedConfig, setSelectedConfig] = useState("60F")
+  const [hostname, setHostname] = useState('');
+  const [selectedConfig, setSelectedConfig] = useState("40F")
   const [data, setData] = useState(selectedConfig);
   const [content, setContent] = useState()
+  const [portConfig, setPortConfig] = useState(null);
+  const [policy, setPolicy] = useState(true);
+  const [services, setServices] = useState(true);
+  const [vpnUser, setVpnUser] = useState(true);
+  const [sipAlg, setSipAlg] = useState(true);
+  const [idleTime, setIdleTime] = useState("");
 
-  //user input variables
-  const [hostname, setHostname] = useState('');
-  const [vlan, setVlan] = useState('');
+  //handleCheckbox state change
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    switch (name) {
+      case "policy":
+        setPolicy(checked);
+        break;
+      case "services":
+        setServices(checked);
+        break;
+      case "vpnUser":
+        setVpnUser(checked);
+        break;
+      case "sipAlg":
+        setSipAlg(checked);
+        break;
+      default:
+        break;
+    }
+  };
 
+  //Config fetcher & variable writer
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/configFiles/${selectedConfig}`);
-        setData(response.data);
-
         const regexHostname = new RegExp('{hostname}', 'g');
-        const regexVlan = new RegExp('{vlan}', 'g');
+        const regexIdleTime = new RegExp('{idletimeout}', 'g');
         const replacedText = response.data
-        .replace(regexHostname, hostname)
-        .replace(regexVlan, vlan);
-        setContent(replacedText)
+          .replace(regexHostname, hostname)
+          .replace(regexIdleTime, idleTime)
+          .replace('{policy}', policy ? Policy() : '')
+          .replace('{services}', services ? Services() : '')
+          .replace('{vpnuser}', vpnUser ? VPNUser() : '')
+          .replace('{sipalg}', sipAlg ? SipAlg() : '');
+          
+          setContent(replacedText)
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchData();
-  }, [selectedConfig, hostname, vlan]);
+  }, [selectedConfig, hostname, policy, services, vpnUser, sipAlg, idleTime]);
 
   return(    
     <div className="fortigate">
       <div className="configuration">
         <h1>Forticonfigurator</h1>
 
+        {/*consig choose dropdown*/}
         <label>
           Wähle deine Konfigurationsdatei aus:
-          <select defaultValue="60F" onChange={e => setSelectedConfig(e.target.value)} >
+          <select defaultValue="40F" onChange={e => setSelectedConfig(e.target.value)} >
             <option value="40F">40F</option>
             <option value="60F">60F</option>
             <option value="80F">80F</option>
@@ -78,12 +112,14 @@ export default function Fortigate () {
         </label>
 
         <form>
+          {/*hosname field*/}
           <div className="object">
             <label>
-              Hostname:
-              <input type="text" 
+              Hostname: 
+              <input 
+                type="text" 
                 name="hostname" 
-                value={hostname} 
+                value={hostname}
                 placeholder="SDAGFW01"
                 onChange={e => setHostname(e.target.value)} 
               />
@@ -101,17 +137,21 @@ export default function Fortigate () {
                 Policies:
                 <input 
                   type="checkbox"
-                  name="https"
+                  name="policy"
                   defaultChecked="yes"
+                  checked={policy}
+                  onChange={handleCheckboxChange}
                 />
               </li>
 
               <li>
-                Services:
+                SDAG Services:
                 <input 
                   type="checkbox"
-                  name="https"
-                  defaultChecked="yes" 
+                  name="services"
+                  defaultChecked="yes"
+                  checked={services}
+                  onChange={handleCheckboxChange}
                 />
               </li>
 
@@ -119,24 +159,42 @@ export default function Fortigate () {
                 VPN User:
                 <input 
                   type="checkbox"
-                  name="https" 
+                  name="vpnUser" 
                   defaultChecked="yes"
+                  checked={vpnUser}
+                  onChange={handleCheckboxChange}
                 />
               </li>
               <li>
-                SIP ALG:
+                shutdown SIP ALG:
                 <input 
                   type="checkbox"
-                  name="https"
+                  name="sipAlg"
                   defaultChecked="yes"
+                  checked={sipAlg}
+                  onChange={handleCheckboxChange}
                 />
               </li>
             </ol>
           </div>
+          {/*idletimeout field*/}
+          <div className="object">
+            <label>
+              idletimeout:
+              <input type="text"
+                name="idleTime" 
+                value={idleTime} 
+                placeholder="in minuten"
+                onChange={e => setIdleTime(e.target.value)} 
+              />
+            </label>
+          </div>
+          
           <button type="reset" value="Reset Form">Reset</button>
         </form>
       </div>
 
+        {/*functions(download, copy & send Mail) and config file*/}
       <div className="textfile">
         <Link onClick={copy}><Clipboard /></Link>
         <Link onClick={downloadFile} download><Download/></Link>

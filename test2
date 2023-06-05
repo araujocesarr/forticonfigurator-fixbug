@@ -1,0 +1,11 @@
+  const handleConfigChange = (e, configKey) => {
+    const updatedPortConfigs = [...portConfigs];
+    const index = updatedPortConfigs.findIndex(config => config.portNumber === selectedPort);
+    updatedPortConfigs[index][configKey] = e.target.value;
+
+    if (configKey === 'activate') {
+      updatedPortConfigs[index][configKey] = e.target.checked;
+    }
+
+    setPortConfigs(updatedPortConfigs);
+  }

@@ -1,23 +1,23 @@
 import React, {useState} from "react";
 import Ethernet from "../icons/Ethernet"
+
 export default function Ports40F() {
 
   const [selectedPort, setSelectedPort] = useState(null);
   const [isActive, setIsActive] = useState(null)
   const [enableDhcp, setEnableDhcp] = useState("disable")
-  console.log(enableDhcp)
 
   //user input variables array
   const [portConfigs, setPortConfigs] = useState([
-    { portNumber: 1, activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: 2, activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: 3, activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: 4, activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: 5, activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: "A", activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: "B", activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: "WAN1", activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
-    { portNumber: "WAN2", activate:'', ipNetmask: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: 1, activate:'', portAlias: '', ip: '', subnet: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: 2, activate:'', portAlias: '',  ip: '', subnet: '', addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: 3, activate:'', portAlias: '',  ip: '', subnet: '',  addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: 4, activate:'', portAlias: '',  ip: '', subnet: '',  addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: 5, activate:'', portAlias: '',  ip: '', subnet: '',  addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: "A", activate:'', portAlias: '',  ip: '', subnet: '',  addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: "B", activate:'', portAlias: '',  ip: '', subnet: '',  addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: "WAN1", activate:'', portAlias: '',  ip: '', subnet: '',  addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
+    { portNumber: "WAN2", activate:'', portAlias: '',  ip: '', subnet: '',  addressRange:'', https:"", ping:"", netmask:'', dnsServer1:'', dnsServer2:'' },
   ]);
   
   const handlePortClick = (portNumber) => {
@@ -96,14 +96,34 @@ export default function Ports40F() {
                       onChange={e => handleConfigChange(e, 'activate')}
                     />
                 </li>
-
                 <li>
-                  IP/Netmask
+                  Port Alias
+                  <input 
+                    type="text" 
+                    name="portAlias"
+                    placeholder="LAN_XY"
+                    value={portConfigs.find(config => config.portNumber === selectedPort).portAlias} 
+                    onChange={e => handleConfigChange(e, 'portAlias')}  
+                  />
+                </li>
+                <li>
+                  IP
                   <input 
                     type="text" 
                     name="ipNetmask" 
-                    value={portConfigs.find(config => config.portNumber === selectedPort).ipNetmask} 
-                    onChange={e => handleConfigChange(e, 'ipNetmask')}  
+                    placeholder="192.168.10.0"
+                    value={portConfigs.find(config => config.portNumber === selectedPort).ip} 
+                    onChange={e => handleConfigChange(e, 'ip')}  
+                  />
+                </li>
+                <li>
+                  Subnetz
+                  <input 
+                    type="text" 
+                    name="subnet" 
+                    placeholder="255.255.255.0"
+                    value={portConfigs.find(config => config.portNumber === selectedPort).subnet} 
+                    onChange={e => handleConfigChange(e, 'subnet')}  
                   />
                 </li>
                   <div className="adminaccess">
@@ -147,16 +167,18 @@ export default function Ports40F() {
                           Address range
                           <input 
                             type="text" 
-                            name="ipAddress" 
-                            value={portConfigs.find(config => config.portNumber === selectedPort).ipAddress} 
-                            onChange={e => handleConfigChange(e, 'ipAddress')}  
+                            name="addressRange"
+                            placeholder="192.168.10.100-192.168.10.200"
+                            value={portConfigs.find(config => config.portNumber === selectedPort).addressRange} 
+                            onChange={e => handleConfigChange(e, 'addressRange')}  
                           />
                       </li>
                       <li>
                           Netmask
                           <input 
                             type="text" 
-                            name="netmask" 
+                            name="netmask"
+                            placeholder="255.255.255.0"
                             value={portConfigs.find(config => config.portNumber === selectedPort).netmask} 
                             onChange={e => handleConfigChange(e, 'netmask')}  
                           />
@@ -166,6 +188,7 @@ export default function Ports40F() {
                           <input 
                             type="text" 
                             name="dnsServer1" 
+                            placeholder="1.1.1.1"
                             value={portConfigs.find(config => config.portNumber === selectedPort).dnsServer1} 
                             onChange={e => handleConfigChange(e, 'dnsServer1')}  
                           />
@@ -174,7 +197,8 @@ export default function Ports40F() {
                           DNS Server 2
                           <input 
                             type="text" 
-                            name="dnsServer2" 
+                            name="dnsServer2"
+                            placeholder="8.8.8.8"
                             value={portConfigs.find(config => config.portNumber === selectedPort).dnsServer2} 
                             onChange={e => handleConfigChange(e, 'dnsServer2')}
                           />

@@ -176,10 +176,11 @@ body {
   max-height: 90vh;
   overflow: hidden;
   h1{
-    padding: 30px;
+    padding: 20px;
   }
 
   .configuration {
+    margin-top: 20px;
     flex: 1;
     border: 2px solid white;
     background-color: $PrimSdagColor;
@@ -282,11 +283,12 @@ body {
         li{
           margin: auto;
           list-style: none;
-          max-width: 100px;
+          max-width: 150px;
           display: flex;
           justify-content: space-between;
         }
       }
+      
       button {
         position: absolute;
         bottom: 0;
@@ -294,6 +296,7 @@ body {
     }
   }
   .textfile {
+    margin-top: 20px;
     max-width: 400px;
     height: 70vh;
     border: 2px solid $PrimSdagColor;
@@ -330,7 +333,7 @@ body {
     .rawconfig {
       textarea{
           width: 100%;
-          min-height: 80vh;
+          min-height: 70vh;
           padding: 12px 20px;
           box-sizing: border-box;
           border: 2px solid #ccc;
