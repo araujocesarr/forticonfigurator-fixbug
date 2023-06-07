@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import Ethernet from "../icons/Ethernet"
 
+import useEffectHandler from "../utilities/UseEffectHandler"
+
 import IntWAN from "../standardconfigs/portconfig/IntWAN";
 import Int1 from "../standardconfigs/portconfig/Int1";
 import Int2 from "../standardconfigs/portconfig/Int2";
@@ -9,41 +11,66 @@ import IntA from "../standardconfigs/portconfig/IntA";
 
 export default function Ports40F() {
 
-  const [selectedPort, setSelectedPort] = useState(null);
-  const [isActive, setIsActive] = useState(null)
-  const [enableDhcp, setEnableDhcp] = useState("disable")
-  console.log(enableDhcp)
-
-
   //user input variables array
   const [portConfigs, setPortConfigs] = useState([
-    { portNumber: 1, activate:'', portAlias_1:'', ipaddress_1:'', intNetmask_1: '', https_1:"", ping_1:"", addressRangeFrom_1:'',addressRangeTo_1:'', dhcpNetmask_1:'', dnsServer1_1:'', dnsServer2_1:''},
-    { portNumber: 2, activate:'', portAlias:'', ipaddress:'', Netmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', netmask:'', dnsServer1:'', dnsServer2:''},
-    { portNumber: 3, activate:'', portAlias:'', ipaddress:'', Netmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', netmask:'', dnsServer1:'', dnsServer2:''},
-    { portNumber: "A", activate:'', portAlias:'', ipaddress:'', Netmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', netmask:'', dnsServer1:'', dnsServer2:''},
-    { portNumber: "WAN", activate:'', portAlias:'', ipaddress:'', Netmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', netmask:'', dnsServer1:'', dnsServer2:''},
+    { portNumber: 1, enable: false, portAlias:'', ipaddress:'', intNetmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', dhcpNetmask:'', dnsServer1:'', dnsServer2:'', enableDhcp: "disable"},
+    { portNumber: 2, enable: false, portAlias:'', ipaddress:'', intNetmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', dhcpNetmask:'', dnsServer1:'', dnsServer2:'', enableDhcp: "disable"},
+    { portNumber: 3, enable: false, portAlias:'', ipaddress:'', intNetmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', dhcpNetmask:'', dnsServer1:'', dnsServer2:'', enableDhcp: "disable"},
+    { portNumber: "A", enable: false, portAlias:'', ipaddress:'', intNetmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', dhcpNetmask:'', dnsServer1:'', dnsServer2:'', enableDhcp: "disable"},
+    { portNumber: "WAN", enable: false, portAlias:'', ipaddress:'', intNetmask: '', https:"", ping:"", addressRangeFrom:'',addressRangeTo:'', dhcpNetmask:'', dnsServer1:'', dnsServer2:'', enableDhcp: "disable"},
   ]);
   
+  const [selectedPort, setSelectedPort] = useState(null);
+
+  // Updated useState hooks
+  const [int1, setInt1] = useState(selectedPort === 1 || selectedPort === null);
+  const [int2, setInt2] = useState(selectedPort === 2 || selectedPort === null);
+  const [int3, setInt3] = useState(selectedPort === 3 || selectedPort === null);
+  const [intA, setIntA] = useState(selectedPort === "A" || selectedPort === null);
+  const [intWAN, setIntWAN] = useState(selectedPort === "WAN" || selectedPort === null);
+
   const handlePortClick = (portNumber) => {
     if (portNumber === selectedPort) {
       setSelectedPort(null);
-      setIsActive(false);
+      setInt1(false);
+      setInt2(false);
+      setInt3(false);
+      setIntA(false);
+      setIntWAN(false);
     } else {
       setSelectedPort(portNumber);
-      setIsActive(true);
+      setInt1(portNumber === 1);
+      setInt2(portNumber === 2);
+      setInt3(portNumber === 3);
+      setIntA(portNumber === "A");
+      setIntWAN(portNumber === "WAN");
     }
-  }
+  };
 
   const handleConfigChange = (e, configKey) => {
     const updatedPortConfigs = [...portConfigs];
-    const index = updatedPortConfigs.findIndex(config => config.portNumber === selectedPort);
-    updatedPortConfigs[index][configKey] = e.target.value;
-
-    if (configKey === 'activate') {
+    const index = updatedPortConfigs.findIndex((config) => config.portNumber === selectedPort);
+  
+    if (configKey === "enable") {
       updatedPortConfigs[index][configKey] = e.target.checked;
+      setInt1(e.target.checked);
+    } else {
+      updatedPortConfigs[index][configKey] = e.target.value;
+    }
+  
+    if (configKey === "enableDhcp") {
+      updatedPortConfigs.forEach((config) => {
+        if (config.portNumber === selectedPort) {
+          config.enableDhcp = e.target.value;
+        } else {
+          config.enableDhcp = "disable";
+        }
+      });
     }
     setPortConfigs(updatedPortConfigs);
-  }
+  };
+  
+  useEffectHandler({ int1, Int1, int2, Int2, int3, Int3, intA, IntA, intWAN, IntWAN });
 
   return (
     <div className="ports">
@@ -81,9 +108,9 @@ export default function Ports40F() {
                   enable:
                   <input 
                       type="checkbox"
-                      name="activate"
-                      checked={portConfigs.find(config => config.portNumber === selectedPort).activate} 
-                      onChange={e => handleConfigChange(e, 'activate')}
+                      name="enable"
+                      checked={portConfigs.find(config => config.portNumber === selectedPort).enable} 
+                      onChange={e => handleConfigChange(e, 'enable')}
                     />
                 </li>
                 <li>
@@ -100,20 +127,20 @@ export default function Ports40F() {
                   IP
                   <input
                     type="text" 
-                    name="ipNetmask" 
+                    name="ipaddress"
                     placeholder="192.168.1.0"
-                    value={portConfigs.find(config => config.portNumber === selectedPort).ip} 
-                    onChange={e => handleConfigChange(e, 'ip')}  
+                    value={portConfigs.find(config => config.portNumber === selectedPort).ipaddress} 
+                    onChange={e => handleConfigChange(e, 'ipaddress')}  
                   />
                 </li>
                 <li>
                   Subnetz
                   <input 
                     type="text" 
-                    name="subnet" 
+                    name="intNetmask" 
                     placeholder="255.255.255.0"
-                    value={portConfigs.find(config => config.portNumber === selectedPort).subnet} 
-                    onChange={e => handleConfigChange(e, 'subnet')}  
+                    value={portConfigs.find(config => config.portNumber === selectedPort).intNetmask} 
+                    onChange={e => handleConfigChange(e, 'intNetmask')}  
                   />
                 </li>
                   <div className="adminaccess">
@@ -143,14 +170,17 @@ export default function Ports40F() {
             {/*activate DHCP*/}
               <div className="object">
                 <label>
-                  DHCP Server
-                  <select defaultValue="disable" onChange={e => setEnableDhcp(e.target.value)}>
-                    <option>disable</option>
-                    <option>enable</option>
+                DHCP Server
+                  <select
+                    value={portConfigs.find(config => config.portNumber === selectedPort).enableDhcp}
+                    onChange={e => handleConfigChange(e, 'enableDhcp')}
+                  >
+                    <option value="disable">disable</option>
+                    <option value="enable">enable</option>
                   </select>
                 </label>
               </div>
-              {enableDhcp !== "disable" && (
+              {portConfigs.find(config => config.portNumber === selectedPort).enableDhcp === "enable" && (
                 <div className="dhcpmenu">
                   <form>
                     <ol>
@@ -159,9 +189,9 @@ export default function Ports40F() {
                           From:
                           <input 
                             type="text" 
-                            name="addressRange" 
+                            name="addressRangeFrom" 
                             placeholder="192.168.1.100"
-                            value={portConfigs.find(config => config.portNumber === selectedPort).ipAddress} 
+                            value={portConfigs.find(config => config.portNumber === selectedPort).addressRangeFrom} 
                             onChange={e => handleConfigChange(e, 'addressRangeFrom')}  
                           />
                       </li>
@@ -169,9 +199,9 @@ export default function Ports40F() {
                           To:
                           <input 
                             type="text" 
-                            name="addressRange" 
+                            name="addressRangeTo" 
                             placeholder="192.168.1.200"
-                            value={portConfigs.find(config => config.portNumber === selectedPort).ipAddress} 
+                            value={portConfigs.find(config => config.portNumber === selectedPort).addressRangeTo} 
                             onChange={e => handleConfigChange(e, 'addressRangeTo')}  
                           />
                       </li>
@@ -179,10 +209,10 @@ export default function Ports40F() {
                           Netmask
                           <input 
                             type="text" 
-                            name="netmask" 
+                            name="dhcpNetmask" 
                             placeholder="255.255.255.0"
-                            value={portConfigs.find(config => config.portNumber === selectedPort).netmask} 
-                            onChange={e => handleConfigChange(e, 'netmask')}  
+                            value={portConfigs.find(config => config.portNumber === selectedPort).dhcpNetmask} 
+                            onChange={e => handleConfigChange(e, 'dhcpNetmask')}  
                           />
                       </li>
                       <li>
@@ -214,6 +244,7 @@ export default function Ports40F() {
           </div>
         )}
       </div>
+
     </div>
   )
 }

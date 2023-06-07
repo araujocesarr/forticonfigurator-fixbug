@@ -1,7 +1,6 @@
 import "../style/styles.css"
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 import Clipboard from "../components/icons/Clipboard";
 import Download from "../components/icons/Download"
@@ -16,7 +15,10 @@ import SipAlg from "../components/standardconfigs/SipAlg"
 import Services from "../components/standardconfigs/Services";
 import VPNUser from "../components/standardconfigs/VPNUser";
 
+import useEffectHandler from "../components/utilities/UseEffectHandler";
+
 export default function Fortigate () {
+
   //config changer
   const inputHandler = event => {
     setText(event.target.value);
@@ -41,15 +43,15 @@ export default function Fortigate () {
   //const to handle forti config file
   const [text, setText] = useState('');
   const [hostname, setHostname] = useState('');
+  const [idleTime, setIdleTime] = useState("");
   const [selectedConfig, setSelectedConfig] = useState("40F")
   const [data, setData] = useState(selectedConfig);
-  const [content, setContent] = useState()
+  const [content, setContent] = useState("")
   const [portConfig, setPortConfig] = useState(null);
   const [policy, setPolicy] = useState(true);
   const [services, setServices] = useState(true);
   const [vpnUser, setVpnUser] = useState(true);
   const [sipAlg, setSipAlg] = useState(true);
-  const [idleTime, setIdleTime] = useState("");
 
   //handleCheckbox state change
   const handleCheckboxChange = (event) => {
@@ -71,29 +73,10 @@ export default function Fortigate () {
         break;
     }
   };
-
+ 
   //Config fetcher & variable writer
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/configFiles/${selectedConfig}`);
-        const regexHostname = new RegExp('{hostname}', 'g');
-        const regexIdleTime = new RegExp('{idletimeout}', 'g');
-        const replacedText = response.data
-          .replace(regexHostname, hostname)
-          .replace(regexIdleTime, idleTime)
-          .replace('{policy}', policy ? Policy() : '')
-          .replace('{services}', services ? Services() : '')
-          .replace('{vpnuser}', vpnUser ? VPNUser() : '')
-          .replace('{sipalg}', sipAlg ? SipAlg() : '');
-          
-          setContent(replacedText)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [selectedConfig, hostname, policy, services, vpnUser, sipAlg, idleTime]);
+  useEffectHandler({selectedConfig, hostname, policy, services, vpnUser, sipAlg, idleTime,
+    Policy, Services, VPNUser, SipAlg, setContent })
 
   return(    
     <div className="fortigate">
@@ -138,7 +121,6 @@ export default function Fortigate () {
                 <input 
                   type="checkbox"
                   name="policy"
-                  defaultChecked="yes"
                   checked={policy}
                   onChange={handleCheckboxChange}
                 />
@@ -149,7 +131,6 @@ export default function Fortigate () {
                 <input 
                   type="checkbox"
                   name="services"
-                  defaultChecked="yes"
                   checked={services}
                   onChange={handleCheckboxChange}
                 />
@@ -160,7 +141,6 @@ export default function Fortigate () {
                 <input 
                   type="checkbox"
                   name="vpnUser" 
-                  defaultChecked="yes"
                   checked={vpnUser}
                   onChange={handleCheckboxChange}
                 />
@@ -170,7 +150,6 @@ export default function Fortigate () {
                 <input 
                   type="checkbox"
                   name="sipAlg"
-                  defaultChecked="yes"
                   checked={sipAlg}
                   onChange={handleCheckboxChange}
                 />

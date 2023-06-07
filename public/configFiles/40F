@@ -6,7 +6,7 @@ config system virtual-switch
         end
     next
 end
-config system interface
+#config system interfaces
 {intWAN}
 {int1}
 {int2}
