@@ -1,10 +1,12 @@
 import React from "react";
 
 export default function IntA() {
-  return (`#interface 4 configuration:
+  return (`#interface A configuration:
   edit "a"
     set vdom "root"
-    set ip 192.168.1.1 255.255.255.0
+    set alias {portAlias_A}
+    set ip {ipaddress_A} {intNetmask_A}
+    set allowaccess {https_A} {ping_A}
     set status down
     set type physical
     set lldp-transmission enable

@@ -1,11 +1,13 @@
-import "../style/styles.css"
 import { Link } from "react-router-dom";
-import { useState } from "react";
-
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+// Style
+import "../style/styles.css"
+// External Dependencies
 import Clipboard from "../components/icons/Clipboard";
 import Download from "../components/icons/Download"
 import Mail from "../components/icons/Mail"
-
+// Internal Components
 import Ports40F from "../components/ports/Ports40F";
 import Ports60F from "../components/ports/Ports60F";
 import Ports80F from "../components/ports/Ports80F";
@@ -15,10 +17,18 @@ import SipAlg from "../components/standardconfigs/SipAlg"
 import Services from "../components/standardconfigs/Services";
 import VPNUser from "../components/standardconfigs/VPNUser";
 
-import useEffectHandler from "../components/utilities/UseEffectHandler";
+import { GlobalVarContext } from "../components/context/GlobalVarContext";
+import Int1 from "../components/standardconfigs/portconfig/Int1"
+import DHCPServ1 from "../components/standardconfigs/dhcpconfig/DHCPServ1";
+import Int2 from "../components/standardconfigs/portconfig/Int2"
+import DHCPServ2 from "../components/standardconfigs/dhcpconfig/DHCPServ2";
+import Int3 from "../components/standardconfigs/portconfig/Int3"
+import DHCPServ3 from "../components/standardconfigs/dhcpconfig/DHCPServ3";
+import IntA from "../components/standardconfigs/portconfig/IntA"
+import DHCPServA from "../components/standardconfigs/dhcpconfig/DHCPServA";
+import IntWAN from "../components/standardconfigs/portconfig/IntWAN"
 
 export default function Fortigate () {
-
   //config changer
   const inputHandler = event => {
     setText(event.target.value);
@@ -40,6 +50,13 @@ export default function Fortigate () {
     element.click();
   }
 
+  const { int_1, enableDhcp_1, portAlias_1, ipaddress_1, intNetmask_1, https_1, ping_1, defaultGateway_1, addressRangeFrom_1, addressRangeTo_1, dhcpNetmask_1, dnsServer1_1, dnsServer2_1,
+    int_2, enableDhcp_2,
+    int_3, enableDhcp_3,
+    int_A, enableDhcp_A,
+    int_WAN
+   } = useContext(GlobalVarContext);
+
   //const to handle forti config file
   const [text, setText] = useState('');
   const [hostname, setHostname] = useState('');
@@ -57,26 +74,83 @@ export default function Fortigate () {
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     switch (name) {
-      case "policy":
-        setPolicy(checked);
+      case "policy": setPolicy(checked);
         break;
-      case "services":
-        setServices(checked);
+      case "services": setServices(checked);
         break;
-      case "vpnUser":
-        setVpnUser(checked);
+      case "vpnUser": setVpnUser(checked);
         break;
-      case "sipAlg":
-        setSipAlg(checked);
-        break;
+      case "sipAlg": setSipAlg(checked);
+      break;
       default:
-        break;
+      break;
     }
   };
- 
-  //Config fetcher & variable writer
-  useEffectHandler({selectedConfig, hostname, policy, services, vpnUser, sipAlg, idleTime,
-    Policy, Services, VPNUser, SipAlg, setContent })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/configFiles/${selectedConfig}`);
+        console.log(response)
+        const regexHostname = new RegExp('{hostname}', 'g');
+        const regexIdleTime = new RegExp('{idletimeout}', 'g');
+
+        // poort 1
+        const regexPortAlias_1 = new RegExp('{portAlias_1}', 'g')
+        const regexIpaddress_1 = new RegExp('{ipaddress_1}', 'g')
+        const regexIntNetmask_1 = new RegExp('{intNetmask_1}', 'g')
+        const regexDefaultGateway_1 = new RegExp('{defaultGateway_1}', 'g')
+        const regexDhcpNetmask_1 = new RegExp('{dhcpNetmask_1}', 'g')
+        const regexAddressRangeFrom_1 = new RegExp('{addressRangeFrom_1}', 'g')
+        const regexAddressRangeTo_1 = new RegExp('{addressRangeTo_1}', 'g')
+        const regexDnsServer1_1 = new RegExp('{dnsServer1_1}', 'g')
+        const regexDnsServer2_1 = new RegExp('{dnsServer2_1}', 'g')
+
+        const replacedText = response.data
+          //replace data comming from "Fortigate.js"
+          .replace(regexHostname, hostname)
+          .replace(regexIdleTime, idleTime)
+          .replace('{policy}', policy ? Policy : '')
+          .replace('{services}', services ? Services : '')
+          .replace('{vpnuser}', vpnUser ? VPNUser : '')
+          .replace('{sipalg}', sipAlg ? SipAlg : '')
+          
+          .replace('{int_1}', int_1 ? Int1 : '')
+          .replace('{dhcp_1}', enableDhcp_1 ? DHCPServ1 : '')
+          .replace(regexPortAlias_1, portAlias_1)
+          .replace(regexIpaddress_1, ipaddress_1)
+          .replace(regexIntNetmask_1, intNetmask_1)
+          .replace('{https_1}', https_1 ? "https" : '')
+          .replace('{ping_1}', ping_1 ? "ping" : '')
+          .replace(regexDefaultGateway_1, defaultGateway_1)
+          .replace(regexDhcpNetmask_1, dhcpNetmask_1)
+          .replace(regexAddressRangeFrom_1, addressRangeFrom_1)
+          .replace(regexAddressRangeTo_1, addressRangeTo_1)
+          .replace(regexDnsServer1_1, dnsServer1_1)
+          .replace(regexDnsServer2_1, dnsServer2_1)
+
+          .replace('{int_2}', int_2 ? Int2 : '')
+          .replace('{dhcp_2}', enableDhcp_2 ? DHCPServ2 : '')
+          .replace('{int_3}', int_3 ? Int3 : '')
+          .replace('{dhcp_3}', enableDhcp_3 ? DHCPServ3 : '')
+          .replace('{int_A}', int_A ? IntA : '')
+          .replace('{dhcp_A}', enableDhcp_A ? DHCPServA : '')
+          .replace('{int_WAN}', int_WAN ? IntWAN : '')
+          setContent(replacedText)
+        } catch (error) {
+          console.log(error);
+        }
+        console.log(defaultGateway_1);
+      };
+      fetchData();
+
+  }, [selectedConfig, hostname, policy, services, vpnUser, sipAlg, idleTime,
+    int_1, enableDhcp_1, portAlias_1,  ipaddress_1, intNetmask_1, https_1, ping_1, defaultGateway_1, addressRangeFrom_1, addressRangeTo_1, dhcpNetmask_1, dnsServer1_1, dnsServer2_1,
+    int_2, enableDhcp_2,
+    int_3, enableDhcp_3,
+    int_A, enableDhcp_A,
+    int_WAN
+   ]);
 
   return(    
     <div className="fortigate">
@@ -179,6 +253,7 @@ export default function Fortigate () {
         <Link onClick={downloadFile} download><Download/></Link>
         <Link to='#' onClick={() => window.location = 'mailto:'}><Mail /></Link>
 
+        {/*change values of config file*/}
         <div className="rawconfig">
           <h3>Konfig für {selectedConfig}</h3>
           <textarea type="text" spellCheck="false" value={content} onChange={inputHandler} />

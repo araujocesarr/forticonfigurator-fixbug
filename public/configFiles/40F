@@ -1,80 +1,92 @@
 config system virtual-switch
-    edit "internal"
-        set physical-switch "sw0"
-        config port
-            delete "internal2"
-        end
-    next
+  edit "internal"
+    set physical-switch "sw0"
+    config port
+      delete "internal2"
+    end
+  next
 end
+
 #config system interfaces
-{intWAN}
-{int1}
-{int2}
-{int3}
-{intA}
-    edit "modem"
-        set vdom "root"
-        set mode pppoe
-        set status down
-        set type physical
-        set snmp-index 3
-    next
-    edit "naf.root"
-        set vdom "root"
-        set type tunnel
-        set src-check disable
-        set snmp-index 5
-    next
-    edit "l2t.root"
-        set vdom "root"
-        set type tunnel
-        set snmp-index 12
-    next
-    edit "ssl.root"
-        set vdom "root"
-        set type tunnel
-        set alias "SSL VPN interface"
-        set snmp-index 4
-    next
-    edit "fortilink"
-        set vdom "root"
-        set fortilink enable
-        set ip 169.254.1.1 255.255.255.0
-        set allowaccess ping fabric
-        set type aggregate
-        set member "a"
-        set lldp-reception enable
-        set lldp-transmission enable
-        set snmp-index 6
-    next
-    edit "LAN_Clients"
-        set vdom "root"
-        set ip 172.16.145.1 255.255.255.0
-        set allowaccess ping https
-        set type hard-switch
-        set device-identification enable
-        set role lan
-        set snmp-index 10
-    next
-    edit "LAN_Voice"
-        set vdom "root"
-        set ip 172.16.146.254 255.255.255.0
-        set allowaccess ping https
-        set type hard-switch
-        set device-identification enable
-        set role lan
-        set snmp-index 11
-    next
+
+#WAN
+{int_WAN}
+#int1
+{int_1}
+{dhcp_1}
+#int2
+{int_2}
+{dhcp_2}
+#int3
+{int_3}
+{dhcp_3}
+#intA
+{int_A}
+{dhcp_A}
+
+  edit "modem"
+      set vdom "root"
+      set mode pppoe
+      set status down
+      set type physical
+      set snmp-index 3
+  next
+  edit "naf.root"
+      set vdom "root"
+      set type tunnel
+      set src-check disable
+      set snmp-index 5
+  next
+  edit "l2t.root"
+      set vdom "root"
+      set type tunnel
+      set snmp-index 12
+  next
+  edit "ssl.root"
+      set vdom "root"
+      set type tunnel
+      set alias "SSL VPN interface"
+      set snmp-index 4
+  next
+  edit "fortilink"
+      set vdom "root"
+      set fortilink enable
+      set ip 169.254.1.1 255.255.255.0
+      set allowaccess ping fabric
+      set type aggregate
+      set member "a"
+      set lldp-reception enable
+      set lldp-transmission enable
+      set snmp-index 6
+  next
+  edit "LAN_Clients"
+      set vdom "root"
+      set ip 172.16.145.1 255.255.255.0
+      set allowaccess ping https
+      set type hard-switch
+      set device-identification enable
+      set role lan
+      set snmp-index 10
+  next
+  edit "LAN_Voice"
+      set vdom "root"
+      set ip 172.16.146.254 255.255.255.0
+      set allowaccess ping https
+      set type hard-switch
+      set device-identification enable
+      set role lan
+      set snmp-index 11
+  next
 end
 
 config firewall address
-    edit "SSLVPN_TUNNEL_ADDR1"
-        set uuid 7ef9198e-7224-51ed-3253-542a4a36c525
-        set type iprange
-        set associated-interface "ssl.root"
-        set start-ip 10.199.1.100
-        set end-ip 10.199.1.200
-    next
+  edit "SSLVPN_TUNNEL_ADDR1"
+      set uuid 7ef9198e-7224-51ed-3253-542a4a36c525
+      set type iprange
+      set associated-interface "ssl.root"
+      set start-ip 10.199.1.100
+      set end-ip 10.199.1.200
+  next
 end
 config firewall service custom 
 edit SMTP_587
@@ -82,39 +94,39 @@ set tcp-portrange 587
 next
 end
 config firewall service group
-    edit "G_S_SDAG"
-        set member "DNS" "HTTP" "HTTPS" "IKE" "IMAPS" "NTP" "POP3S" "RDP" "SMTP" "SMTP_587"
-    next
+  edit "G_S_SDAG"
+      set member "DNS" "HTTP" "HTTPS" "IKE" "IMAPS" "NTP" "POP3S" "RDP" "SMTP" "SMTP_587"
+  next
 end
 config ips sensor
-    edit "sdag_standard_ips"
-        set scan-botnet-connections block
-        config entries
-            edit 1
-            next
-        end
-    next
+  edit "sdag_standard_ips"
+      set scan-botnet-connections block
+      config entries
+          edit 1
+          next
+      end
+  next
 end
 config application list
-    edit "sdag_standard_appcontrol"
-        set other-application-log enable
-        config entries
-            edit 1
-                set category 2 6
-            next
-        end
-    next
+  edit "sdag_standard_appcontrol"
+      set other-application-log enable
+      config entries
+          edit 1
+              set category 2 6
+          next
+      end
+  next
 end
 config user local
-    edit "sdag"
-        set type password
-        set passwd ENC CKbYxkLJf9n5x+jrJu5/8QJKB25Cj/VubuTisNAwZG4ai/AARJaQL4WAq4A6KCuzoNyo32ScRgBTZYjNWrpQvD0YaL5zybI9igAGiupKBooeNZwcCAxWde5OpCwssJO948OvdRmc2OwmDgYWuSqZ19aMLjdxBhxCXNiwBYnEkS7NALz9Vx5LR3G2v1heN9xXyemEYw==
-    next
+  edit "sdag"
+      set type password
+      set passwd ENC CKbYxkLJf9n5x+jrJu5/8QJKB25Cj/VubuTisNAwZG4ai/AARJaQL4WAq4A6KCuzoNyo32ScRgBTZYjNWrpQvD0YaL5zybI9igAGiupKBooeNZwcCAxWde5OpCwssJO948OvdRmc2OwmDgYWuSqZ19aMLjdxBhxCXNiwBYnEkS7NALz9Vx5LR3G2v1heN9xXyemEYw==
+  next
 end
 config user group
-    edit "G_S_ClientVPN_Local-Auth"
-        set member "sdag"
-    next
+  edit "G_S_ClientVPN_Local-Auth"
+      set member "sdag"
+  next
 end
 config firewall address 
 edit E_N_LAN
@@ -123,205 +135,212 @@ next
 end
 
 config vpn ssl web portal
-    edit "sdag_standard_portal"
-        set tunnel-mode enable
-        set keep-alive enable
-        set save-password enable
-        set ip-pools "SSLVPN_TUNNEL_ADDR1"
-        set split-tunneling-routing-address "E_N_LAN"
-        set forticlient-download-method ssl-vpn
-        set customize-forticlient-download-url enable
-        set windows-forticlient-download-url "https://links.fortinet.com/forticlient/win/vpnagent"
-        set macos-forticlient-download-url "https://links.fortinet.com/forticlient/mac/vpnagent"
-    next
+  edit "sdag_standard_portal"
+      set tunnel-mode enable
+      set keep-alive enable
+      set save-password enable
+      set ip-pools "SSLVPN_TUNNEL_ADDR1"
+      set split-tunneling-routing-address "E_N_LAN"
+      set forticlient-download-method ssl-vpn
+      set customize-forticlient-download-url enable
+      set windows-forticlient-download-url "https://links.fortinet.com/forticlient/win/vpnagent"
+      set macos-forticlient-download-url "https://links.fortinet.com/forticlient/mac/vpnagent"
+  next
 end
 config vpn ssl settings
-    set servercert "Fortinet_Factory"
-    set tunnel-ip-pools "SSLVPN_TUNNEL_ADDR1"
-    set port 443
-    set source-interface "wan1"
-    set source-address "all"
-    set source-address6 "all"
-    set default-portal "sdag_standard_portal"
+  set servercert "Fortinet_Factory"
+  set tunnel-ip-pools "SSLVPN_TUNNEL_ADDR1"
+  set port 443
+  set source-interface "wan1"
+  set source-address "all"
+  set source-address6 "all"
+  set default-portal "sdag_standard_portal"
 end
 config dnsfilter profile    
-    edit "sdag_standard_dnsfilter"
-        config ftgd-dns
-            set options error-allow
-            config filters
-                edit 1
-                    set category 3
-                    set action block
-                next
-                edit 2
-                    set category 12
-                    set action block
-                next
-                edit 3
-                    set category 83
-                    set action block
-                next
-                edit 4
-                    set category 13
-                    set action block
-                next
-                edit 5
-                    set category 14
-                    set action block
-                next
-                edit 6
-                    set category 26
-                    set action block
-                next
-                edit 7
-                    set category 61
-                    set action block
-                next
-                edit 8
-                    set category 86
-                    set action block
-                next
-                edit 9
-                    set category 88
-                    set action block
-                next
-                edit 10
-                    set category 90
-                next
-                edit 11
-                    set category 91
-                next
-                edit 12
-                next
-            end
-        end
-        set block-botnet enable
-    next
+  edit "sdag_standard_dnsfilter"
+      config ftgd-dns
+          set options error-allow
+          config filters
+              edit 1
+                  set category 3
+                  set action block
+              next
+              edit 2
+                  set category 12
+                  set action block
+              next
+              edit 3
+                  set category 83
+                  set action block
+              next
+              edit 4
+                  set category 13
+                  set action block
+              next
+              edit 5
+                  set category 14
+                  set action block
+              next
+              edit 6
+                  set category 26
+                  set action block
+              next
+              edit 7
+                  set category 61
+                  set action block
+              next
+              edit 8
+                  set category 86
+                  set action block
+              next
+              edit 9
+                  set category 88
+                  set action block
+              next
+              edit 10
+                  set category 90
+              next
+              edit 11
+                  set category 91
+              next
+              edit 12
+              next
+          end
+      end
+      set block-botnet enable
+  next
 end
 config antivirus settings
-    set grayware enable
+  set grayware enable
 end
 config antivirus profile
-    edit "sdag_standard_antivirus"
-        config http
-            set options scan
-            set outbreak-prevention full-archive
-        end
-        config ftp
-            set options scan
-            set outbreak-prevention full-archive
-        end
-        config imap
-            set options scan
-            set outbreak-prevention full-archive
-        end
-        config pop3
-            set options scan
-            set outbreak-prevention full-archive
-        end
-        config smtp
-            set options scan
-            set outbreak-prevention full-archive
-        end
-        config nntp
-            set outbreak-prevention full-archive
-        end
-        config cifs
-            set options scan
-            set outbreak-prevention full-archive
-        end
-        config outbreak-prevention
-            set ftgd-service enable
-        end
-    next
+  edit "sdag_standard_antivirus"
+      config http
+          set options scan
+          set outbreak-prevention full-archive
+      end
+      config ftp
+          set options scan
+          set outbreak-prevention full-archive
+      end
+      config imap
+          set options scan
+          set outbreak-prevention full-archive
+      end
+      config pop3
+          set options scan
+          set outbreak-prevention full-archive
+      end
+      config smtp
+          set options scan
+          set outbreak-prevention full-archive
+      end
+      config nntp
+          set outbreak-prevention full-archive
+      end
+      config cifs
+          set options scan
+          set outbreak-prevention full-archive
+      end
+      config outbreak-prevention
+          set ftgd-service enable
+      end
+  next
 end
 config webfilter profile
-    edit "sdag_standard_webfilter"
-        set options block-invalid-url
-        config ftgd-wf
-            set options error-allow rate-server-ip
-            config filters
-                edit 26
-                    set category 26
-                    set action block
-                next
-                edit 61
-                    set category 61
-                    set action block
-                next
-                edit 86
-                    set category 86
-                    set action block
-                next
-                edit 88
-                    set category 88
-                    set action block
-                next
-                edit 90
-                    set category 90
-                next
-                edit 91
-                    set category 91
-                next
-                edit 3
-                    set category 3
-                    set action block
-                next
-                edit 12
-                    set category 12
-                    set action block
-                next
-                edit 83
-                    set category 83
-                    set action block
-                next
-                edit 13
-                    set category 13
-                    set action block
-                next
-                edit 14
-                    set category 14
-                    set action block
-                next
-                edit 15
-                    set action warning
-                next
-            end
-        end
-    next
+  edit "sdag_standard_webfilter"
+      set options block-invalid-url
+      config ftgd-wf
+          set options error-allow rate-server-ip
+          config filters
+              edit 26
+                  set category 26
+                  set action block
+              next
+              edit 61
+                  set category 61
+                  set action block
+              next
+              edit 86
+                  set category 86
+                  set action block
+              next
+              edit 88
+                  set category 88
+                  set action block
+              next
+              edit 90
+                  set category 90
+              next
+              edit 91
+                  set category 91
+              next
+              edit 3
+                  set category 3
+                  set action block
+              next
+              edit 12
+                  set category 12
+                  set action block
+              next
+              edit 83
+                  set category 83
+                  set action block
+              next
+              edit 13
+                  set category 13
+                  set action block
+              next
+              edit 14
+                  set category 14
+                  set action block
+              next
+              edit 15
+                  set action warning
+              next
+          end
+      end
+  next
 end
 config firewall ssl-ssh-profile
-    edit "sdag_standard_cert-ssl-cert-inspect"
-        config ssl
-            set inspect-all certificate-inspection
-        end
-        config https
-        end
-        config ftps
-        end
-        config imaps
-        end
-        config pop3s
-        end
-        config smtps
-        end
-        config ssh
-            set ports 22
-            set status disable
-        end
-    next
+  edit "sdag_standard_cert-ssl-cert-inspect"
+    config ssl
+      set inspect-all certificate-inspection
+    end
+    config https
+    end
+    config ftps
+    end
+    config imaps
+    end
+    config pop3s
+    end
+    config smtps
+    end
+    config ssh
+      set ports 22
+      set status disable
+    end
+  next
 end
+
+#VPN User Configuration:
 {vpnuser}
 config system global
-    set admintimeout {idletimeout}
-end 
+  set admintimeout {idletimeout}
+end
+
+#Standart SDAG policies:
 {policy}
 config system global
-    set admin-sport 8443
-    set gui-certificates enable
-    set hostname "{hostname}"
-    set switch-controller enable
-    set timezone 26
+  set admin-sport 8443
+  set gui-certificates enable
+  set hostname "{hostname}"
+  set switch-controller enable
+  set timezone 26
 end
+#Standart SDAG SIP Alg config (deactivate):
 {sipalg}
+
+#Standart SDAG Services:
 {services}

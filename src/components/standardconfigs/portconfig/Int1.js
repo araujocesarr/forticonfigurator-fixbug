@@ -1,7 +1,8 @@
 import React from "react";
 
-export default function Int1() {
-  return (`#interface 1 configuration:
+export default function int1() {
+  return (
+`#interface 1 configuration:
   edit "lan1"
     set vdom "root"
     set alias {portAlias_1}
