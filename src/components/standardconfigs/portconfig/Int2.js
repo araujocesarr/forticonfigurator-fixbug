@@ -1,7 +1,7 @@
 import React from "react";
 
-export default function Int2() {
-  return (`#interface 2 configuration:
+export default function int2() {
+  return `#interface 2 configuration:
   edit "lan2"
     set vdom "root"
     set alias {portAlias_2}
@@ -12,6 +12,5 @@ export default function Int2() {
     set lldp-transmission enable
     set role lan
     set snmp-index 7
-  next`
-  )
+  next`;
 }

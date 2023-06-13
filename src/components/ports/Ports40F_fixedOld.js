@@ -92,18 +92,40 @@ export default function Ports40F() {
       setSubmenuOpen(true);
     }
   };
-
+  const numberPorts = {
+    1: [setInt_1, setEnableDhcp_1, setHttps_1, setPing_1],
+    2: [setInt_2, enableDhcp_2, https_2, ping_2],
+    3: [setInt_3, enableDhcp_3, https_3, ping_3],
+    A: [setInt_A, enableDhcp_A, https_A, ping_A],
+    WAN: [setInt_WAN, enableDhcp_WAN, https_WAN, ping_WAN],
+  };
   //handleCheckbox state change
+
+  /*  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    switch (name) {
+      case `int_${selectedPort}`:
+        const portSetInt = numberPorts[selectedPort][0];
+        portSetInt(checked);
+        const portSetDhcp = numberPorts[selectedPort][1];
+        console.log(portSetDhcp);
+        portSetDhcp(checked);
+        break;
+
+      default:
+        break;
+    }
+  }; */
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
+
     switch (name) {
       case "int_1":
         setInt_1(checked);
         break;
-      case "enableDhcp_1":
+      case `enableDhcp_1`:
         setEnableDhcp_1(checked);
-        break;
-      case "https_1":
+      case `https_1`:
         setHttps_1(checked);
         break;
       case "ping_1":
@@ -111,6 +133,13 @@ export default function Ports40F() {
         break;
       case "int_2":
         setInt_2(checked);
+        console.log(portAlias_2);
+        break;
+      case "ping_2":
+        setPing_2(checked);
+        break;
+      case "https_2":
+        setHttps_2(checked);
         break;
       case "enableDhcp_2":
         setEnableDhcp_2(checked);
@@ -137,42 +166,57 @@ export default function Ports40F() {
         break;
     }
   };
-
+  console.log(defaultGateway_1);
   return (
     <div className="ports">
       {/*Interface chooser*/}
       <div className="port">
         <label
           className={selectedPort === 1 ? "active" : ""}
-          onClick={() => handlePortClick(1)}
+          onClick={() => {
+            handlePortClick(1);
+            setSelectedPort(1);
+          }}
         >
           <p>1</p>
           <Ethernet />
         </label>
         <label
           className={selectedPort === 2 ? "active" : ""}
-          onClick={() => handlePortClick(2)}
+          onClick={() => {
+            handlePortClick(2);
+            setSelectedPort(2);
+          }}
         >
           <p>2</p>
           <Ethernet />
         </label>
         <label
           className={selectedPort === 3 ? "active" : ""}
-          onClick={() => handlePortClick(3)}
+          onClick={() => {
+            handlePortClick(3);
+            setSelectedPort(3);
+          }}
         >
           <p>3</p>
           <Ethernet />
         </label>
         <label
           className={selectedPort === "A" ? "active" : ""}
-          onClick={() => handlePortClick("A")}
+          onClick={() => {
+            handlePortClick("A");
+            setSelectedPort("A");
+          }}
         >
           <p>A</p>
           <Ethernet />
         </label>
         <label
           className={selectedPort === "WAN" ? "active" : ""}
-          onClick={() => handlePortClick("WAN")}
+          onClick={() => {
+            handlePortClick("WAN");
+            setSelectedPort("WAN");
+          }}
         >
           <p>WAN</p>
           <Ethernet />
@@ -180,87 +224,87 @@ export default function Ports40F() {
       </div>
       {/*Interface Options*/}
       <div className="menu">
-        {submenuOpen && (
+        {submenuOpen && selectedPort === 1 && (
           <div className="submenu">
-            <ol>
-              <li>
-                enable:
-                <input
-                  type="checkbox"
-                  name="int_1"
-                  checked={int_1}
-                  onChange={handleCheckboxChange}
-                />
-              </li>
+            <form>
+              <ol>
+                <li>
+                  enable:
+                  <input
+                    type="checkbox"
+                    name="int_1"
+                    checked={int_1}
+                    onChange={handleCheckboxChange}
+                  />
+                </li>
 
-              <li>
-                Port Alias
-                <input
-                  type="text"
-                  name="portAlias_1"
-                  placeholder="LAN_XY"
-                  value={portAlias_1}
-                  onChange={(e) => setPortAlias_1(e.target.value)}
-                />
-              </li>
-              <li>
-                IP
-                <input
-                  type="text"
-                  name="ipaddress_1"
-                  placeholder="192.168.1.0"
-                  value={ipaddress_1}
-                  onChange={(e) => setIpaddress_1(e.target.value)}
-                />
-              </li>
-              <li>
-                Subnetz
-                <input
-                  type="text"
-                  name="intNetmask_1"
-                  placeholder="255.255.255.0"
-                  value={intNetmask_1}
-                  onChange={(e) => setIntNetmask_1(e.target.value)}
-                />
-              </li>
-              <div className="adminaccess">
-                <ol>
-                  <p>Admin Access:</p>
-                  <li>
-                    https:
-                    <input
-                      type="checkbox"
-                      name="https_1"
-                      checked={https_1}
-                      onChange={handleCheckboxChange}
-                    />
-                  </li>
-                  <li>
-                    Ping:
-                    <input
-                      type="checkbox"
-                      name="ping_1"
-                      checked={ping_1}
-                      onChange={handleCheckboxChange}
-                    />
-                  </li>
-                </ol>
+                <li>
+                  Port Alias
+                  <input
+                    type="text"
+                    name="portAlias_1"
+                    placeholder="LAN_XY"
+                    value={portAlias_1}
+                    onChange={(e) => setPortAlias_1(e.target.value)}
+                  />
+                </li>
+                <li>
+                  IP
+                  <input
+                    type="text"
+                    name="ipaddress_1"
+                    placeholder="192.168.1.0"
+                    value={ipaddress_1}
+                    onChange={(e) => setIpaddress_1(e.target.value)}
+                  />
+                </li>
+                <li>
+                  Subnetz
+                  <input
+                    type="text"
+                    name="intNetmask_1"
+                    placeholder="255.255.255.0"
+                    value={intNetmask_1}
+                    onChange={(e) => setIntNetmask_1(e.target.value)}
+                  />
+                </li>
+                <div className="adminaccess">
+                  <ol>
+                    <p>Admin Access:</p>
+                    <li>
+                      https:
+                      <input
+                        type="checkbox"
+                        name="https_1"
+                        checked={https_1}
+                        onChange={handleCheckboxChange}
+                      />
+                    </li>
+                    <li>
+                      Ping:
+                      <input
+                        type="checkbox"
+                        name="ping_1"
+                        checked={ping_1}
+                        onChange={handleCheckboxChange}
+                      />
+                    </li>
+                  </ol>
+                </div>
+              </ol>
+              {/*activate DHCP*/}
+              <div className="object">
+                <label>
+                  DHCP Server
+                  <input
+                    type="checkbox"
+                    name="enableDhcp_1"
+                    checked={enableDhcp_1}
+                    onChange={handleCheckboxChange}
+                  />
+                </label>
               </div>
-            </ol>
-            {/*activate DHCP*/}
-            <div className="object">
-              <label>
-                DHCP Server
-                <input
-                  type="checkbox"
-                  name="enableDhcp_1"
-                  checked={enableDhcp_1}
-                  onChange={handleCheckboxChange}
-                />
-              </label>
-            </div>
-            <div className="dhcpmenu">
-              <form>
+              <div className="dhcpmenu">
                 <ol>
                   <li>
                     default Gateway:
@@ -324,8 +368,158 @@ export default function Ports40F() {
                     />
                   </li>
                 </ol>
-              </form>
-            </div>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
+      <div className="menu">
+        {submenuOpen && selectedPort === 2 && (
+          <div className="submenu">
+            <form>
+              <ol>
+                <li>
+                  enable:
+                  <input
+                    type="checkbox"
+                    name="int_2"
+                    checked={int_2}
+                    onChange={handleCheckboxChange}
+                  />
+                </li>
+
+                <li>
+                  Port Alias
+                  <input
+                    type="text"
+                    name="portAlias_2"
+                    placeholder="LAN_X"
+                    value={portAlias_2}
+                    onChange={(e) => setPortAlias_2(e.target.value)}
+                  />
+                </li>
+                <li>
+                  IP
+                  <input
+                    type="text"
+                    name="ipaddress_2"
+                    placeholder="192.168.1.0"
+                    value={ipaddress_1}
+                    onChange={(e) => setIpaddress_2(e.target.value)}
+                  />
+                </li>
+                <li>
+                  Subnetz
+                  <input
+                    type="text"
+                    name="intNetmask_2"
+                    placeholder="255.255.255.0"
+                    value={intNetmask_1}
+                    onChange={(e) => setIntNetmask_2(e.target.value)}
+                  />
+                </li>
+                <div className="adminaccess">
+                  <ol>
+                    <p>Admin Access:</p>
+                    <li>
+                      https:
+                      <input
+                        type="checkbox"
+                        name="https_2"
+                        checked={https_2}
+                        onChange={handleCheckboxChange}
+                      />
+                    </li>
+                    <li>
+                      Ping:
+                      <input
+                        type="checkbox"
+                        name="ping_2"
+                        checked={ping_2}
+                        onChange={handleCheckboxChange}
+                      />
+                    </li>
+                  </ol>
+                </div>
+              </ol>
+              {/*activate DHCP*/}
+              <div className="object">
+                <label>
+                  DHCP Server
+                  <input
+                    type="checkbox"
+                    name="enableDhcp_2"
+                    checked={enableDhcp_2}
+                    onChange={handleCheckboxChange}
+                  />
+                </label>
+              </div>
+              <div className="dhcpmenu">
+                <ol>
+                  <li>
+                    default Gateway:
+                    <input
+                      type="text"
+                      name="defaultGateway_2"
+                      placeholder="192.168.1.1"
+                      value={defaultGateway_1}
+                      onChange={(e) => setDefaultGateway_1(e.target.value)}
+                    />
+                  </li>
+                  <li>
+                    Netmask
+                    <input
+                      type="text"
+                      name="dhcpNetmask_2"
+                      placeholder="255.255.255.0"
+                      value={dhcpNetmask_2}
+                      onChange={(e) => setDhcpNetmask_2(e.target.value)}
+                    />
+                  </li>
+                  Adress Range:
+                  <li>
+                    From:
+                    <input
+                      type="text"
+                      name="addressRangeFrom_2"
+                      placeholder="192.168.1.100"
+                      value={addressRangeFrom_2}
+                      onChange={(e) => setAddressRangeFrom_2(e.target.value)}
+                    />
+                  </li>
+                  <li>
+                    To:
+                    <input
+                      type="text"
+                      name="addressRangeTo_2"
+                      placeholder="192.168.1.200"
+                      value={addressRangeTo_2}
+                      onChange={(e) => setAddressRangeTo_2(e.target.value)}
+                    />
+                  </li>
+                  <li>
+                    DNS Server 1
+                    <input
+                      type="text"
+                      name="dnsServer1_2"
+                      placeholder="1.1.1.1"
+                      value={dnsServer1_2}
+                      onChange={(e) => setDnsServer1_2(e.target.value)}
+                    />
+                  </li>
+                  <li>
+                    DNS Server 2
+                    <input
+                      type="text"
+                      name="dnsServer2_1"
+                      placeholder="8.8.8.8"
+                      value={dnsServer2_1}
+                      onChange={(e) => setDnsServer2_2(e.target.value)}
+                    />
+                  </li>
+                </ol>
+              </div>
+            </form>
           </div>
         )}
       </div>
